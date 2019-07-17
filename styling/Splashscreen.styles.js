@@ -17,7 +17,7 @@ export default StyleSheet.create({
 	text: {
 		fontSize: 25,
 		paddingTop: 20,
-		fontWeight: '600',
+		fontWeight: '700',
 		color: '#ffffff',
 	},
 });

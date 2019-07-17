@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TextInput } from 'react-native';
 import styles from '../styling/LoginScreen.styles';
 import PhoneInput from 'react-native-phone-input';
-import { Button, ActivityIndicator } from '@ant-design/react-native';
+import { Button } from '@ant-design/react-native';
 import { connect } from 'react-redux';
 import {
 	handlePhoneChange,
@@ -13,8 +13,8 @@ import {
 import { signUp } from '../redux/actions/user';
 
 class LoginScreen extends Component {
-	componentWillReceiveProps() {
-		if (this.props.currentUser) {
+	componentWillUpdate(newProps) {
+		if (newProps.currentUser) {
 			this.props.navigation.replace('Home');
 		}
 	}
