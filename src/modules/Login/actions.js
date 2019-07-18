@@ -1,9 +1,10 @@
 import * as request from 'superagent';
-import { baseUrl } from '../../helpers/constants';
+import Constants from '../../config/Constants';
 
 export const SET_PHONE_NUMBER = 'SET_PHONE_NUMBER';
 export const SET_SECURITY_CODE = 'SET_SECURITY_CODE';
 export const SECURITY_CODE_SENT = 'SECURITY_CODE_SENT';
+export const WRONG_SECURITY_CODE = 'WRONG_SECURITY_CODE';
 
 export const TOGGLE_LOGIN_LOADING_STATE = 'TOGGLE_LOGIN_LOADING_STATE';
 export const CLEAR_USER_ERROR = 'CLEAR_USER_ERROR';
@@ -47,7 +48,7 @@ export const signUp = () => (dispatch, getState) => {
 	dispatch(toggleLoginLoadingState());
 
 	request
-		.post(`${baseUrl}/users`)
+		.post(`${Constants.baseUrl}/users`)
 		.send({ phoneNumber: state.login.phoneNumber })
 		.then(() => {
 			dispatch(toggleLoginLoadingState());
@@ -61,7 +62,7 @@ export const signUp = () => (dispatch, getState) => {
 export const login = () => (dispatch, getState) => {
 	const state = getState();
 	request
-		.post(`${baseUrl}/login`)
+		.post(`${Constants.baseUrl}/login`)
 		.send({
 			phoneNumber: state.login.phoneNumber,
 			securityCode: state.login.securityCode,
@@ -70,6 +71,6 @@ export const login = () => (dispatch, getState) => {
 			dispatch(userLoginSuccess(res.body));
 		})
 		.catch(err => {
-			console.log(err);
+			dispatch({ type: WRONG_SECURITY_CODE });
 		});
 };

@@ -5,6 +5,7 @@ import {
 	SECURITY_CODE_SENT,
 	TOGGLE_LOGIN_LOADING_STATE,
 	USER_SIGNUP_FAILED,
+	WRONG_SECURITY_CODE,
 } from './actions';
 
 import {
@@ -31,10 +32,13 @@ export default function(state = initialState, { type, payload }) {
 			return { ...state, phoneNumber: payload };
 		case SET_SECURITY_CODE:
 			return { ...state, securityCode: payload };
-		case USER_SIGNUP_FAILED:
-			return { ...state, signupError: true, loading: false };
 		case SECURITY_CODE_SENT:
 			return { ...state, codeSent: true, signupError: null };
+
+		case USER_SIGNUP_FAILED:
+		case WRONG_SECURITY_CODE:
+			return { ...state, authError: true, loading: false };
+
 		case TOGGLE_LOGIN_LOADING_STATE:
 			return { ...state, loading: !state.loading };
 		case USER_LOGIN_SUCCESS:

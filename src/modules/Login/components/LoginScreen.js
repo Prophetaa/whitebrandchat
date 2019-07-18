@@ -36,7 +36,7 @@ class LoginScreen extends Component {
 			handleSecurityCodeChange,
 			login,
 			currentUser,
-			signupError,
+			authError,
 		} = this.props;
 		return (
 			<View style={styles.container}>
@@ -46,13 +46,13 @@ class LoginScreen extends Component {
 							<Image
 								style={styles.image}
 								source={
-									!signupError
+									!authError
 										? Config.ImageAssets.MOBILE_NUMBER_ICON
 										: Config.ImageAssets.ERROR_404_ICON
 								}
 							/>
 							<Text style={styles.header}>
-								{!signupError
+								{!authError
 									? 'Insert your mobile number to get started!'
 									: 'Oops... something went wrong. Try again'}
 							</Text>
@@ -68,9 +68,9 @@ class LoginScreen extends Component {
 							<Button
 								type='primary'
 								style={{ marginTop: 20 }}
-								disabled={!phoneNumber || (loading && !signupError)}
+								disabled={!phoneNumber || (loading && !authError)}
 								onPress={signUp}
-								loading={loading && !signupError}
+								loading={loading && !authError}
 							>
 								Submit
 							</Button>
@@ -87,10 +87,13 @@ class LoginScreen extends Component {
 								below
 							</Text>
 							<TextInput
-								style={styles.numberInput}
+								style={
+									!authError ? styles.codeInput : styles.codeInputError
+								}
 								type='number'
 								multiline={false}
 								maxLength={5}
+								keyboardType='number-pad'
 								value={securityCode}
 								onChangeText={securityCode =>
 									handleSecurityCodeChange(securityCode)
@@ -123,7 +126,7 @@ class LoginScreen extends Component {
 const mapStateToProps = state => ({
 	phoneNumber: state.login.phoneNumber,
 	securityCode: state.login.securityCode,
-	signupError: state.login.signupError,
+	authError: state.login.authError,
 	loading: state.login.loading,
 	codeSent: state.login.codeSent,
 	currentUser: state.currentUser,

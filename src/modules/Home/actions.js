@@ -1,4 +1,4 @@
-import { baseUrl } from '../../helpers/constants';
+import Constants from '../../config/Constants';
 import * as request from 'superagent';
 
 export const CONVERSATIONS_FETCHED = 'CONVERSATIONS_FETCHED';
@@ -11,7 +11,7 @@ export const fetchMyConversations = () => async (dispatch, getState) => {
 	let jwt = state.currentUser.jwt;
 
 	request
-		.get(`${baseUrl}/conversations`)
+		.get(`${Constants.baseUrl}/conversations`)
 		.set('Authorization', `Bearer ${jwt}`)
 		.then(res => dispatch({ type: CONVERSATIONS_FETCHED, payload: res.body }))
 		.catch(err => console.log(err));

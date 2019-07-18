@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import Colors from '../../../config/Colors';
 
 export default StyleSheet.create({
 	container: {
@@ -30,13 +31,23 @@ export default StyleSheet.create({
 		borderColor: '#e6e6e6',
 		borderRadius: 7,
 	},
-	numberInput: {
+	codeInput: {
 		marginTop: 30,
 		borderWidth: 2,
 		fontSize: 25,
 		padding: 12,
 		letterSpacing: 30,
 		borderColor: '#e6e6e6',
+		borderRadius: 7,
+		textAlign: 'center',
+	},
+	codeInputError: {
+		marginTop: 30,
+		borderWidth: 2,
+		fontSize: 25,
+		padding: 12,
+		letterSpacing: 30,
+		borderColor: Colors.RED,
 		borderRadius: 7,
 		textAlign: 'center',
 	},
