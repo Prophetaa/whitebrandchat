@@ -29,9 +29,9 @@ export default (styles = isThereConversations =>
 		},
 		noConversationsText: {
 			fontWeight: '400',
-			fontSize: 20,
+			fontSize: 15,
 			color: '#8e8e8e',
-			paddingTop: 10,
+			paddingTop: 20,
 			paddingBottom: 20,
 		},
 	}));

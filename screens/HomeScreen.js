@@ -6,6 +6,7 @@ import { ActivityIndicator, Button } from '@ant-design/react-native';
 import { connect } from 'react-redux';
 
 import { fetchMyConversations } from '../redux/actions/conversations';
+import { localStorageJwtKey } from '../helpers/constants';
 
 class HomeScreen extends Component {
 	componentDidMount() {
