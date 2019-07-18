@@ -5,7 +5,6 @@ export default StyleSheet.create({
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
-		// backgroundColor: '#84DBFF',
 	},
 	image: {
 		width: 150,
@@ -18,6 +17,6 @@ export default StyleSheet.create({
 		fontSize: 25,
 		paddingTop: 20,
 		fontWeight: '700',
-		color: '#ffffff',
+		color: '#c4c4c4',
 	},
 });

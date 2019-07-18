@@ -1,8 +1,5 @@
-import { AsyncStorage } from 'react-native';
-import {
-	CONVERSATIONS_FETCHED,
-	FETCHING_CONVERSATIONS,
-} from '../actions/conversations';
+// import { AsyncStorage } from 'react-native';
+import { CONVERSATIONS_FETCHED, FETCHING_CONVERSATIONS } from './actions';
 
 let initialState = { conversations: [], fetching: false, error: false };
 

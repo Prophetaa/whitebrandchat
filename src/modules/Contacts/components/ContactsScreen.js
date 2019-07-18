@@ -2,19 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { Text, View, Image, KeyboardAvoidingView } from 'react-native';
-import { List, Modal, Provider, Button } from '@ant-design/react-native';
-import PhoneInput from 'react-native-phone-input';
-import styles from '../styling/ContactsScreen.styles';
-import ListItem from '../components/ListItem';
+import { Modal, Provider, Button } from '@ant-design/react-native';
 
-const Item = List.Item;
+import PhoneInput from 'react-native-phone-input';
+
+import styles from './styles';
+import ListItem from './ListItem';
+import Config from '../../../config';
 
 class ContactsScreen extends Component {
 	async componentDidMount() {}
 	state = { phoneNumber: null };
 
 	openModal = () => {
-		console.log('asdasdas');
 		this.setState({ visible: true });
 	};
 
@@ -28,13 +28,13 @@ class ContactsScreen extends Component {
 		}
 	};
 	render() {
-		const { error, phoneNumber } = this.state;
+		// const { error, phoneNumber } = this.state;
 		return (
 			<KeyboardAvoidingView behavior='padding' enabled>
 				<View style={styles.container}>
 					<Provider>
 						<ListItem
-							imageSource={'../assets/plus.png'}
+							imageSource={Config.ImageAssets.PLUS_ICON}
 							text={'Invite a person'}
 							isLocalImage={true}
 							onPress={this.openModal}
@@ -49,7 +49,7 @@ class ContactsScreen extends Component {
 							<View style={styles.modalBody}>
 								<Image
 									style={styles.modalImage}
-									source={require('../assets/text.png')}
+									source={Config.ImageAssets.TEXT_MESSAGE_ICON}
 								/>
 								<Text style={styles.modalText}>
 									We'll send them a text message

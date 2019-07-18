@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text, Image } from 'react-native';
-import styles from '../styling/HomeScreen.styles';
-
+import styles from './styles';
+import Config from '../../../config';
 import { ActivityIndicator, Button } from '@ant-design/react-native';
 import { connect } from 'react-redux';
 
-import { fetchMyConversations } from '../redux/actions/conversations';
-import { localStorageJwtKey } from '../helpers/constants';
+import { fetchMyConversations } from '../actions';
 
 class HomeScreen extends Component {
 	componentDidMount() {
@@ -16,6 +15,7 @@ class HomeScreen extends Component {
 	render() {
 		const { myConversations, navigation } = this.props;
 		const isThereConversations = myConversations.conversations.length > 0;
+
 		return (
 			<View style={styles(isThereConversations).container}>
 				{myConversations.fetching && <ActivityIndicator size='large' />}
@@ -23,7 +23,7 @@ class HomeScreen extends Component {
 					<>
 						<Image
 							style={styles().noConversationsImage}
-							source={require('../assets/no-messages.png')}
+							source={Config.ImageAssets.EMPTY_INBOX_ICON}
 						/>
 						<Text style={styles().noConversationsText}>
 							You have no conversations

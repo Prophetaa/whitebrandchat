@@ -1,7 +1,7 @@
 import { AsyncStorage } from 'react-native';
 import { localStorageJwtKey } from '../../helpers/constants';
-import { USER_LOGIN_SUCCESS, USER_LOGOUT } from '../actions/user';
-import { JWT_REHIDRATION_SUCCESSFUL } from '../actions/login';
+import { USER_LOGIN_SUCCESS, USER_LOGOUT } from '../Login/actions';
+import { JWT_REHIDRATION_SUCCESSFUL } from './actions';
 
 let initialState = null;
 

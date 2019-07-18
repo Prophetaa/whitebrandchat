@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Text, View, Image } from 'react-native';
 import { connect } from 'react-redux';
-import { rehidrateJWT } from '../redux/actions/login';
-import styles from '../styling/Splashscreen.styles';
+
+import { rehidrateJWT } from '../../Auth/actions';
+import styles from './styles';
+import Config from '../../../config';
 
 class SplashScreen extends Component {
 	async componentDidMount() {
@@ -22,7 +24,7 @@ class SplashScreen extends Component {
 			<View style={styles.container}>
 				<Image
 					style={styles.image}
-					source={require('../assets/chat.png')}
+					source={Config.ImageAssets.WHITE_BRAND_ICON}
 				/>
 				<Text style={styles.text}>White Brand Chat</Text>
 			</View>

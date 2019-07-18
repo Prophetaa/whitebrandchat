@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Text, Image, TouchableHighlight } from 'react-native';
 import { StyleSheet } from 'react-native';
 
@@ -6,10 +6,7 @@ const ListItem = ({ imageSource, text, onPress }) => {
 	return (
 		<TouchableHighlight onPress={onPress}>
 			<View style={styles.container}>
-				<Image
-					style={styles.image}
-					source={require('../assets/plus.png')}
-				/>
+				<Image style={styles.image} source={imageSource} />
 				<Text style={styles.text}>{text}</Text>
 			</View>
 		</TouchableHighlight>

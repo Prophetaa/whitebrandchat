@@ -1,9 +1,9 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 
-import store from './redux/store';
-import { StatusBar } from 'react-native';
-import AppNavigator from './helpers/AppNavigation';
+import { store } from './src/redux';
+
+import AppNavigator from './src/helpers/AppNavigation';
 
 class App extends React.Component {
 	render() {

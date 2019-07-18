@@ -14,6 +14,15 @@ export default StyleSheet.create({
 		textAlign: 'center',
 		paddingBottom: 10,
 	},
+	stepWrapper: {
+		width: '100%',
+	},
+	image: {
+		width: 150,
+		height: 150,
+		marginBottom: 30,
+		alignSelf: 'center',
+	},
 	phoneInput: {
 		marginTop: 30,
 		padding: 10,
@@ -22,6 +31,7 @@ export default StyleSheet.create({
 		borderRadius: 7,
 	},
 	numberInput: {
+		marginTop: 30,
 		borderWidth: 2,
 		fontSize: 25,
 		padding: 12,
@@ -29,5 +39,13 @@ export default StyleSheet.create({
 		borderColor: '#e6e6e6',
 		borderRadius: 7,
 		textAlign: 'center',
+	},
+	didntReceiveText: {
+		paddingTop: 20,
+		textAlign: 'center',
+	},
+	clickHere: {
+		color: '#2998BD',
+		textDecorationLine: 'underline',
 	},
 });
