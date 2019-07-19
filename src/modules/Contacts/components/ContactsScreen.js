@@ -2,17 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { Text, View, Image, KeyboardAvoidingView } from 'react-native';
-import { Modal, Provider, Button } from '@ant-design/react-native';
-
-import PhoneInput from 'react-native-phone-input';
+import { Provider, Toast } from '@ant-design/react-native';
+import { setPhoneNumber, sendInvitation } from '../actions';
 
 import styles from './styles';
 import ListItem from './ListItem';
 import Config from '../../../config';
+import InvitationModal from './InvitationModal';
 
 class ContactsScreen extends Component {
-	async componentDidMount() {}
-	state = { phoneNumber: null };
+	state = { visible: false };
 
 	openModal = () => {
 		this.setState({ visible: true });
@@ -22,13 +21,17 @@ class ContactsScreen extends Component {
 		this.setState({ visible: false });
 	};
 
-	sendInvitation = () => {
-		if (!this.state.phoneNumber) {
-			this.setState({ error: true });
+	componentWillReceiveProps(newProps) {
+		if (newProps.invite.sent) {
+			this.setState({ visible: false });
+			Toast.success('Message Sent', 1);
 		}
-	};
+	}
+
 	render() {
-		// const { error, phoneNumber } = this.state;
+		const { visible } = this.state;
+		const { setPhoneNumber, sendInvitation, invite } = this.props;
+
 		return (
 			<KeyboardAvoidingView behavior='padding' enabled>
 				<View style={styles.container}>
@@ -39,35 +42,18 @@ class ContactsScreen extends Component {
 							isLocalImage={true}
 							onPress={this.openModal}
 						/>
-						<Modal
-							transparent
+						<InvitationModal
 							onClose={this.onClose}
-							maskClosable
-							visible={this.state.visible}
-							closable
-						>
-							<View style={styles.modalBody}>
-								<Image
-									style={styles.modalImage}
-									source={Config.ImageAssets.TEXT_MESSAGE_ICON}
-								/>
-								<Text style={styles.modalText}>
-									We'll send them a text message
-								</Text>
-								<PhoneInput
-									ref='phone'
-									textProps={{ placeholder: '123 456 789' }}
-									initialCountry='null'
-									style={styles.phoneInput}
-									onChangePhoneNumber={phoneNumber =>
-										this.setState({ phoneNumber })
-									}
-								/>
-							</View>
-							<Button type='primary' onPress={this.sendInvitation}>
-								Send Invite
-							</Button>
-						</Modal>
+							visible={visible}
+							onChangePhoneNumber={phoneNumber =>
+								setPhoneNumber(phoneNumber)
+							}
+							styles={styles}
+							error={invite.error}
+							loading={invite.loading}
+							image={Config.ImageAssets.TEXT_MESSAGE_ICON}
+							sendInvitation={invite.phoneNumber && sendInvitation}
+						/>
 					</Provider>
 				</View>
 			</KeyboardAvoidingView>
@@ -77,9 +63,13 @@ class ContactsScreen extends Component {
 
 const mapStateToProps = state => ({
 	currentUser: state.currentUser,
+	invite: state.Contacts.invite,
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+	setPhoneNumber,
+	sendInvitation,
+};
 
 export default connect(
 	mapStateToProps,

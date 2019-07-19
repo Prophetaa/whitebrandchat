@@ -6,6 +6,7 @@ import { ActivityIndicator, Button } from '@ant-design/react-native';
 import { connect } from 'react-redux';
 
 import { fetchMyConversations } from '../actions';
+import Constants from '../../../config/Constants';
 
 class HomeScreen extends Component {
 	componentDidMount() {
