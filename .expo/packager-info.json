@@ -1,18 +1,9 @@
 {
   "devToolsPort": 19002,
-<<<<<<< HEAD
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
   "expoServerNgrokUrl": null,
   "packagerNgrokUrl": null,
   "ngrokPid": null
-=======
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 25278,
-  "expoServerNgrokUrl": "https://uz-phz.anonymous.whitebrandchat.exp.direct",
-  "packagerNgrokUrl": "https://packager.uz-phz.anonymous.whitebrandchat.exp.direct",
-  "ngrokPid": 25293
->>>>>>> master
 }
