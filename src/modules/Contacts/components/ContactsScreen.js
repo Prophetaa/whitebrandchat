@@ -31,7 +31,6 @@ class ContactsScreen extends Component {
 	render() {
 		const { visible } = this.state;
 		const { setPhoneNumber, sendInvitation, invite } = this.props;
-
 		return (
 			<KeyboardAvoidingView behavior='padding' enabled>
 				<View style={styles.container}>

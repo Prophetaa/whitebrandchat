@@ -4,6 +4,7 @@ import {
 	SENDING_CONTACT_INVITE,
 	CONTACT_INVITED_SUCCESSFULLY,
 	CONTACT_INVITE_FAILED,
+
 } from './actions';
 
 let initialState = {

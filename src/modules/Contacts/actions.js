@@ -1,10 +1,13 @@
+
 import * as request from 'superagent';
+
 import Constants from '../../config/Constants';
 
 export const PHONE_NUMBER_CHANGED = 'PHONE_NUMBER_CHANGED';
 
 export const SENDING_CONTACT_INVITE = 'SENDING_CONTACT_INVITE';
 export const CONTACT_INVITED_SUCCESSFULLY = 'CONTACT_INVITED_SUCCESSFULLY';
+
 export const CONTACT_INVITE_FAILED = 'CONTACT_INVITE_FAILED';
 
 export const setPhoneNumber = payload => ({
