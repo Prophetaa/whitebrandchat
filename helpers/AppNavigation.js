@@ -2,6 +2,8 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SplashScreen from '../screens/SplashScreen';
+import ContactsScreenStyles from '../styling/ContactsScreen.styles';
+import ContactsScreen from '../screens/ContactsScreen';
 
 const AppNavigator = createStackNavigator(
 	{
@@ -19,6 +21,9 @@ const AppNavigator = createStackNavigator(
 			navigationOptions: {
 				header: null,
 			},
+		},
+		Contacts: {
+			screen: ContactsScreen,
 		},
 	},
 	{

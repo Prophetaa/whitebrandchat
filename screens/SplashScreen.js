@@ -8,6 +8,7 @@ class SplashScreen extends Component {
 	async componentDidMount() {
 		await this.props.rehidrateJWT();
 	}
+
 	componentWillUpdate(newProps) {
 		const { currentUser, rehidratingJwt } = newProps;
 		if (!currentUser && !rehidratingJwt) {

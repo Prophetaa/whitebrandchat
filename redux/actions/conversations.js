@@ -7,6 +7,7 @@ export const FETCHING_CONVERSATIONS = 'FETCHING_CONVERSATIONS';
 export const fetchMyConversations = () => async (dispatch, getState) => {
 	let state = getState();
 	if (!state.currentUser) return null;
+	dispatch({ type: FETCHING_CONVERSATIONS });
 	let jwt = state.currentUser.jwt;
 
 	request
