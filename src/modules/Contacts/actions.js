@@ -9,7 +9,8 @@ export const CONTACT_INVITED_SUCCESSFULLY = 'CONTACT_INVITED_SUCCESSFULLY';
 export const CONTACT_INVITE_FAILED = 'CONTACT_INVITE_FAILED';
 
 export const CHECKING_CONTACTS_REGISTRATION = 'CHECKING_CONTACTS_REGISTRATION';
-export const CONTACTS_CHECKED = 'CONTACTS_CHECKED';
+export const CONTACTS_CHECK_SUCCESS = 'CONTACTS_CHECK_SUCCESS';
+export const CONTACTS_CHECK_FAILED = 'CONTACTS_CHECK_FAILED';
 
 export const setPhoneNumber = payload => ({
 	type: PHONE_NUMBER_CHANGED,
@@ -56,9 +57,12 @@ export const checkIfContactsAreRegistered = data => async (
 		.set('Authorization', `Bearer ${jwt}`)
 		.send({ numbers: formatedNumbersWithPrefix })
 		.then(async res =>
-			dispatch({ type: CONTACTS_CHECKED, payload: res.body })
+			dispatch({ type: CONTACTS_CHECK_SUCCESS, payload: res.body })
 		)
-		.catch(err => console.log(err));
+		.catch(err => {
+			console.log(err);
+			dispatch({ type: CONTACTS_CHECK_FAILED });
+		});
 };
 
 export const sendInvitation = () => (dispatch, getState) => {

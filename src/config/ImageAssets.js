@@ -1,6 +1,7 @@
 const ImageAssets = {
 	WHITE_BRAND_ICON: require('../assets/chat.png'),
 	MOBILE_NUMBER_ICON: require('../assets/mobile-number.png'),
+	NETWORK_ERROR: require('../assets/warning.png'),
 	ERROR_404_ICON: require('../assets/network-error.png'),
 	PINCODE_ICON: require('../assets/pincode.png'),
 	EMPTY_INBOX_ICON: require('../assets/no-messages.png'),

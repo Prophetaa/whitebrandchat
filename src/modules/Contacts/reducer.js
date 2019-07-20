@@ -5,12 +5,12 @@ import {
 	CONTACT_INVITED_SUCCESSFULLY,
 	CONTACT_INVITE_FAILED,
 	CHECKING_CONTACTS_REGISTRATION,
-	CONTACTS_CHECKED,
+	CONTACTS_CHECK_SUCCESS,
+	CONTACTS_CHECK_FAILED,
 } from './actions';
 
 let initialState = {
-	contacts: [],
-	loading: false,
+	contacts: { list: [], error: null, loading: false },
 	invite: {
 		sent: false,
 		loading: false,
@@ -25,9 +25,20 @@ let initialState = {
 export default function(state = initialState, { type, payload }) {
 	switch (type) {
 		case CHECKING_CONTACTS_REGISTRATION:
-			return { ...state, loading: true };
-		case CONTACTS_CHECKED:
-			return { ...state, loading: false, contacts: payload };
+			return {
+				...state,
+				contacts: { ...state.contacts, error: null, loading: true },
+			};
+		case CONTACTS_CHECK_SUCCESS:
+			return {
+				...state,
+				contacts: { ...state.contacts, loading: true, list: payload },
+			};
+		case CONTACTS_CHECK_FAILED:
+			return {
+				...state,
+				contacts: { ...state.contacts, error: true, loading: false },
+			};
 
 		case PHONE_NUMBER_CHANGED:
 			return {

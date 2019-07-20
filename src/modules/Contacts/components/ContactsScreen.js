@@ -65,11 +65,24 @@ class ContactsScreen extends Component {
 							onPress={this.openModal}
 						/>
 
-						{Contacts.contacts.map(contact => (
+						{Contacts.contacts.list.map(contact => (
 							<ListItem key={contact} text={contact} />
 						))}
 
-						{Contacts.loading && <ActivityIndicator />}
+						{Contacts.contacts.loading && <ActivityIndicator />}
+
+						{/* TODO: Move comon empty list or error message styling and components to common folder */}
+						{Contacts.contacts.error && (
+							<View style={styles.networkErrorWrapper}>
+								<Image
+									style={styles.networkErrorImage}
+									source={Config.ImageAssets.NETWORK_ERROR}
+								/>
+								<Text style={styles.networkErrorText}>
+									Something went wrong...
+								</Text>
+							</View>
+						)}
 
 						<InvitationModal
 							onClose={this.onClose}
