@@ -32,7 +32,7 @@ export default function(state = initialState, { type, payload }) {
 		case CONTACTS_CHECK_SUCCESS:
 			return {
 				...state,
-				contacts: { ...state.contacts, loading: true, list: payload },
+				contacts: { ...state.contacts, loading: false, list: payload },
 			};
 		case CONTACTS_CHECK_FAILED:
 			return {

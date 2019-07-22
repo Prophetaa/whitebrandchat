@@ -3,6 +3,11 @@ import { HomeScreen } from '../modules/Home';
 import { LoginScreen } from '../modules/Login';
 import { SplashScreen } from '../modules/Splash';
 import { ContactsScreen } from '../modules/Contacts';
+import { ConversationScreen } from '../modules/Conversation';
+
+import React from 'react';
+import { Image, TouchableHighlight } from 'react-native';
+import { ImageAssets } from '../config';
 
 const AppNavigator = createStackNavigator(
 	{
@@ -14,6 +19,9 @@ const AppNavigator = createStackNavigator(
 		},
 		Home: {
 			screen: HomeScreen,
+			navigationOptions: {
+				header: null,
+			},
 		},
 		Login: {
 			screen: LoginScreen,
@@ -23,6 +31,9 @@ const AppNavigator = createStackNavigator(
 		},
 		Contacts: {
 			screen: ContactsScreen,
+		},
+		Conversation: {
+			screen: ConversationScreen,
 		},
 	},
 	{

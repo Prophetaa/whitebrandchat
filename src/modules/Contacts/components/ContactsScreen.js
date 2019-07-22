@@ -7,16 +7,17 @@ import {
 	setPhoneNumber,
 	sendInvitation,
 	checkIfContactsAreRegistered,
+	cleanReducer,
 } from '../actions';
+import { createConversation } from '../../Conversation/actions';
 
 import * as Permissions from 'expo-permissions';
 import * as Contacts from 'expo-contacts';
 
 import styles from './styles';
 import ListItem from './ListItem';
-import Config from '../../../config';
+import { ImageAssets } from '../../../config';
 import InvitationModal from './InvitationModal';
-import { FlatList } from 'react-native-gesture-handler';
 
 class ContactsScreen extends Component {
 	state = { visible: false };
@@ -25,7 +26,7 @@ class ContactsScreen extends Component {
 		const { status } = await Permissions.askAsync(Permissions.CONTACTS);
 
 		if (status !== 'granted') {
-			console.log('Hey! You heve not enabled selected permissions');
+			await Permissions.askAsync(Permissions.CONTACTS);
 		} else {
 			const { data } = await Contacts.getContactsAsync({
 				fields: [Contacts.Fields.PhoneNumbers],
@@ -49,24 +50,44 @@ class ContactsScreen extends Component {
 			this.setState({ visible: false });
 			Toast.success('Message Sent', 1);
 		}
+		if (newProps.Conversation.creation.redirectToId) {
+			console.log(newProps.Conversation.creation.redirectToId);
+			this.props.navigation.replace('Conversation', {
+				conversationId: newProps.Conversation.creation.redirectToId,
+			});
+		}
+	}
+
+	componentWillUnmount() {
+		this.props.cleanReducer();
 	}
 
 	render() {
 		const { visible } = this.state;
-		const { setPhoneNumber, sendInvitation, Contacts } = this.props;
+		const {
+			setPhoneNumber,
+			sendInvitation,
+			Contacts,
+			navigation,
+			createConversation,
+		} = this.props;
 		return (
 			<KeyboardAvoidingView behavior='padding' enabled>
 				<View style={styles.container}>
 					<Provider>
 						<ListItem
-							imageSource={Config.ImageAssets.PLUS_ICON}
+							imageSource={ImageAssets.PLUS_ICON}
 							text={'Invite a person'}
 							isLocalImage={true}
 							onPress={this.openModal}
 						/>
 
 						{Contacts.contacts.list.map(contact => (
-							<ListItem key={contact} text={contact} />
+							<ListItem
+								key={contact}
+								text={contact}
+								onPress={() => createConversation(contact)}
+							/>
 						))}
 
 						{Contacts.contacts.loading && <ActivityIndicator />}
@@ -76,7 +97,7 @@ class ContactsScreen extends Component {
 							<View style={styles.networkErrorWrapper}>
 								<Image
 									style={styles.networkErrorImage}
-									source={Config.ImageAssets.NETWORK_ERROR}
+									source={ImageAssets.NETWORK_ERROR}
 								/>
 								<Text style={styles.networkErrorText}>
 									Something went wrong...
@@ -93,7 +114,7 @@ class ContactsScreen extends Component {
 							styles={styles}
 							error={Contacts.invite.error}
 							loading={Contacts.invite.loading}
-							image={Config.ImageAssets.TEXT_MESSAGE_ICON}
+							image={ImageAssets.TEXT_MESSAGE_ICON}
 							sendInvitation={
 								Contacts.invite.phoneNumber && sendInvitation
 							}
@@ -108,12 +129,15 @@ class ContactsScreen extends Component {
 const mapStateToProps = state => ({
 	currentUser: state.currentUser,
 	Contacts: state.Contacts,
+	Conversation: state.Conversation,
 });
 
 const mapDispatchToProps = {
 	setPhoneNumber,
 	sendInvitation,
 	checkIfContactsAreRegistered,
+	createConversation,
+	cleanReducer,
 };
 
 export default connect(

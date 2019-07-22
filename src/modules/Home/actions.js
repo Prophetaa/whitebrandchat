@@ -3,6 +3,9 @@ import * as request from 'superagent';
 
 export const CONVERSATIONS_FETCHED = 'CONVERSATIONS_FETCHED';
 export const FETCHING_CONVERSATIONS = 'FETCHING_CONVERSATIONS';
+export const FETCHING_CONVERSATIONS_ERROR = 'FETCHING_CONVERSATIONS_ERROR';
+
+export const CREATE_SOCKET_ROOMS = 'CREATE_SOCKET_ROOMS';
 
 export const fetchMyConversations = () => async (dispatch, getState) => {
 	let state = getState();
@@ -13,6 +16,12 @@ export const fetchMyConversations = () => async (dispatch, getState) => {
 	request
 		.get(`${Constants.baseUrl}/conversations`)
 		.set('Authorization', `Bearer ${jwt}`)
-		.then(res => dispatch({ type: CONVERSATIONS_FETCHED, payload: res.body }))
-		.catch(err => console.log(err));
+		.then(res => {
+			dispatch({ type: CREATE_SOCKET_ROOMS, payload: res.body });
+			dispatch({ type: CONVERSATIONS_FETCHED, payload: res.body });
+		})
+		.catch(err => {
+			console.log(err);
+			dispatch({ type: FETCHING_CONVERSATIONS_ERROR });
+		});
 };

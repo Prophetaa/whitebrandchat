@@ -1,6 +1,6 @@
 import * as request from 'superagent';
 
-import Constants from '../../config/Constants';
+import { Constants } from '../../config';
 
 export const PHONE_NUMBER_CHANGED = 'PHONE_NUMBER_CHANGED';
 
@@ -11,10 +11,16 @@ export const CONTACT_INVITE_FAILED = 'CONTACT_INVITE_FAILED';
 export const CHECKING_CONTACTS_REGISTRATION = 'CHECKING_CONTACTS_REGISTRATION';
 export const CONTACTS_CHECK_SUCCESS = 'CONTACTS_CHECK_SUCCESS';
 export const CONTACTS_CHECK_FAILED = 'CONTACTS_CHECK_FAILED';
+export const CLEAN_CONVERSATION_REDUCER_STATE =
+	'CLEAN_CONVERSATION_REDUCER_STATE';
 
 export const setPhoneNumber = payload => ({
 	type: PHONE_NUMBER_CHANGED,
 	payload,
+});
+
+export const cleanReducer = () => ({
+	type: CLEAN_CONVERSATION_REDUCER_STATE,
 });
 
 export const checkIfContactsAreRegistered = data => async (
@@ -56,7 +62,7 @@ export const checkIfContactsAreRegistered = data => async (
 		.post(`${Constants.baseUrl}/check-contacts`)
 		.set('Authorization', `Bearer ${jwt}`)
 		.send({ numbers: formatedNumbersWithPrefix })
-		.then(async res =>
+		.then(res =>
 			dispatch({ type: CONTACTS_CHECK_SUCCESS, payload: res.body })
 		)
 		.catch(err => {

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { rehidrateJWT } from '../../Auth/actions';
 import styles from './styles';
-import Config from '../../../config';
+import { ImageAssets } from '../../../config';
 
 class SplashScreen extends Component {
 	async componentDidMount() {
@@ -22,10 +22,7 @@ class SplashScreen extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<Image
-					style={styles.image}
-					source={Config.ImageAssets.WHITE_BRAND_ICON}
-				/>
+				<Image style={styles.image} source={ImageAssets.WHITE_BRAND_ICON} />
 				<Text style={styles.text}>White Brand Chat</Text>
 			</View>
 		);
