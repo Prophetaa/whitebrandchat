@@ -109,6 +109,10 @@ export default (isThereConversations = StyleSheet.create({
 		fontSize: 15,
 		paddingBottom: 2,
 	},
+	bubleAttachedImage: {
+		width: 230,
+		height: 200,
+	},
 	timeAndStatusContainer: {
 		flexDirection: 'row',
 		justifyContent: 'flex-end',

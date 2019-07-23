@@ -18,7 +18,12 @@ const ChatBubble = ({ message, id }) => {
 				style={isTextmessageMine ? styles.rightBubble : styles.leftBubble}
 			>
 				<Text style={styles.bubbleText}>{message.text}</Text>
-				{message.imageSource && <Image source={message.imageSource} />}
+				{message.attachedImage && (
+					<Image
+						style={styles.bubleAttachedImage}
+						source={{ uri: message.attachedImage }}
+					/>
+				)}
 				<View style={styles.timeAndStatusContainer}>
 					<Text style={styles.bubbleTimeStamp}>
 						{`${timeStamp.getHours()}:${timeStamp.getMinutes()}`}
