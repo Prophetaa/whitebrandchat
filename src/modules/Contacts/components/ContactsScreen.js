@@ -35,7 +35,6 @@ class ContactsScreen extends Component {
 			}
 		}
 	}
-
 	openModal = () => {
 		this.setState({ visible: true });
 	};
@@ -83,7 +82,7 @@ class ContactsScreen extends Component {
 								</Text>
 							</View>
 						)}
-
+             
 						<InvitationModal
 							onClose={this.onClose}
 							visible={visible}
@@ -97,6 +96,7 @@ class ContactsScreen extends Component {
 							sendInvitation={
 								Contacts.invite.phoneNumber && sendInvitation
 							}
+
 						/>
 					</Provider>
 				</View>

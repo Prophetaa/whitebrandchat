@@ -1,3 +1,4 @@
+
 import * as request from 'superagent';
 
 import Constants from '../../config/Constants';
@@ -64,6 +65,13 @@ export const checkIfContactsAreRegistered = data => async (
 			dispatch({ type: CONTACTS_CHECK_FAILED });
 		});
 };
+
+export const CONTACT_INVITE_FAILED = 'CONTACT_INVITE_FAILED';
+
+export const setPhoneNumber = payload => ({
+	type: PHONE_NUMBER_CHANGED,
+	payload,
+});
 
 export const sendInvitation = () => (dispatch, getState) => {
 	let state = getState();
