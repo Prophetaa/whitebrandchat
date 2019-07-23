@@ -14,7 +14,6 @@ class App extends React.Component {
 		YellowBox.ignoreWarnings([
 			'Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?',
 		]); //Ignoring this error because it's warning me to use props that I don't need.
-
 		await Font.loadAsync(
 			'antoutline',
 			require('@ant-design/icons-react-native/fonts/antoutline.ttf')
