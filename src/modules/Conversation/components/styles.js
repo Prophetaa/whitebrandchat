@@ -34,6 +34,31 @@ export default (isThereConversations = StyleSheet.create({
 		fontSize: 20,
 		backgroundColor: Colors.WHITE,
 	},
+	uploadedImageContainer: {
+		flex: 1,
+		width: '80%',
+		height: 190,
+		padding: 10,
+		borderRadius: 8,
+		alignItems: 'flex-end',
+		shadowColor: '#000',
+		shadowOffset: {
+			width: 0,
+			height: 3,
+		},
+		shadowOpacity: 0.55,
+		shadowRadius: 3.84,
+		elevation: 5,
+	},
+	uploadedImage: {
+		flex: 1,
+		alignItems: 'flex-end',
+		width: '100%',
+		height: '100%',
+	},
+	clearUploadedImageIcon: {
+		margin: 5,
+	},
 	cameraIcon: {
 		marginTop: 8,
 		marginBottom: 8,

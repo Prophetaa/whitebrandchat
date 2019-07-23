@@ -14,15 +14,26 @@ export const CONVERSATION_MESSAGES_FETCHING_FAILED =
 	'CONVERSATION_MESSAGES_FETCHING_FAILED';
 
 export const SENDING_MESSAGE = 'SENDING_MESSAGE';
+export const IMAGE_ATTACHED = 'IMAGE_ATTACHED';
 export const MESSAGE_SENT_SUCCESS = 'MESSAGE_SENT_SUCCESS';
 export const NEW_MESSAGE_RECEIVED = 'NEW_MESSAGE_RECEIVED';
 export const MESSAGE_SENT_ERROR = 'MESSAGE_SENT_ERROR';
 export const CLEAR_CURRENT_CONVERSATION_REDUCER =
 	'CLEAR_CURRENT_CONVERSATION_REDUCER';
+export const REMOVE_ATTACHED_IMAGE = 'REMOVE_ATTACHED_IMAGE';
 
 export const onTextChange = payload => ({
 	type: TEXT_CHANGED,
 	payload: payload.nativeEvent.text,
+});
+
+export const attachImage = payload => ({
+	type: IMAGE_ATTACHED,
+	payload,
+});
+
+export const clearUploadedImage = () => ({
+	type: REMOVE_ATTACHED_IMAGE,
 });
 
 export const clearCurrentConversationReducer = () => ({
@@ -72,10 +83,16 @@ export const fetchConversationMessages = conversationId => (
 
 export const sendMessage = () => (dispatch, getState) => {
 	const state = getState();
-	if (!state.currentUser) return null;
-	dispatch({ type: SENDING_MESSAGE });
+	if (!state.currentUser) {
+		return null;
+	}
 	const currentConversation = state.Conversation.currentConversation;
 	const jwt = state.currentUser.jwt;
+
+	if (currentConversation.messageToSend.text === '') {
+		return null;
+	}
+	dispatch({ type: SENDING_MESSAGE });
 
 	request
 		.post(

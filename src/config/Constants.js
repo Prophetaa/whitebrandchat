@@ -1,5 +1,5 @@
 const Constants = {
-	baseUrl: process.env.REACT_APP_API_URL || 'https://8fba3e40.ngrok.io',
+	baseUrl: process.env.REACT_APP_API_URL || 'http://localhost:4000',
 	localStorageJwtKey: 'currentUserJwt',
 };
 

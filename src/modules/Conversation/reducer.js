@@ -10,6 +10,8 @@ import {
 	SENDING_MESSAGE,
 	CLEAR_CURRENT_CONVERSATION_REDUCER,
 	NEW_MESSAGE_RECEIVED,
+	REMOVE_ATTACHED_IMAGE,
+	IMAGE_ATTACHED,
 } from './actions';
 import { CLEAN_CONVERSATION_REDUCER_STATE } from '../Contacts/actions';
 
@@ -36,14 +38,6 @@ export default function(state = initialState, { type, payload }) {
 	const { messageToSend, creation, currentConversation } = state;
 
 	switch (type) {
-		case TEXT_CHANGED:
-			return {
-				...state,
-				currentConversation: {
-					...currentConversation,
-					messageToSend: { ...messageToSend, text: payload },
-				},
-			};
 		case CREATING_CONVERSATION:
 			return { ...state, creation: { ...creation, loading: true } };
 		case CONVERSATION_CREATED:
@@ -90,6 +84,25 @@ export default function(state = initialState, { type, payload }) {
 					error: true,
 				},
 			};
+		case TEXT_CHANGED:
+			return {
+				...state,
+				currentConversation: {
+					...currentConversation,
+					messageToSend: { ...messageToSend, text: payload },
+				},
+			};
+		case IMAGE_ATTACHED:
+			return {
+				...state,
+				currentConversation: {
+					...currentConversation,
+					messageToSend: {
+						...currentConversation.messageToSend,
+						attatchedImage: payload,
+					},
+				},
+			};
 		case SENDING_MESSAGE:
 			return {
 				...state,
@@ -113,6 +126,17 @@ export default function(state = initialState, { type, payload }) {
 			}
 			return state;
 
+		case REMOVE_ATTACHED_IMAGE:
+			return {
+				...state,
+				currentConversation: {
+					...currentConversation,
+					messageToSend: {
+						...currentConversation.messageToSend,
+						attatchedImage: null,
+					},
+				},
+			};
 		case CLEAR_CURRENT_CONVERSATION_REDUCER:
 			return {
 				...state,
