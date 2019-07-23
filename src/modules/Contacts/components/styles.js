@@ -1,4 +1,6 @@
 import { StyleSheet } from 'react-native';
+import Colors from '../../../config/Colors';
+
 
 export default StyleSheet.create({
 	container: {
@@ -35,5 +37,19 @@ export default StyleSheet.create({
 		borderWidth: 2,
 		borderColor: '#e6e6e6',
 		borderRadius: 7,
+	},
+	phoneInputError: {
+		marginTop: 20,
+		marginBottom: 20,
+		padding: 10,
+		fontSize: 20,
+		borderWidth: 2,
+		borderColor: Colors.RED,
+		borderRadius: 7,
+	},
+	errorMessage: {
+		fontSize: 12,
+		color: Colors.RED,
+		paddingTop: 10,
 	},
 });
