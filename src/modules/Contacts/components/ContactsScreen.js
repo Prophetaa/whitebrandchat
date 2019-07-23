@@ -51,7 +51,6 @@ class ContactsScreen extends Component {
 			Toast.success('Message Sent', 1);
 		}
 		if (newProps.Conversation.creation.redirectToId) {
-			console.log(newProps.Conversation.creation.redirectToId);
 			this.props.navigation.replace('Conversation', {
 				conversationId: newProps.Conversation.creation.redirectToId,
 			});

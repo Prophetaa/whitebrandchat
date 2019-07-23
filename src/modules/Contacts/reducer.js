@@ -1,4 +1,3 @@
-// import { AsyncStorage } from 'react-native';
 import {
 	PHONE_NUMBER_CHANGED,
 	SENDING_CONTACT_INVITE,
