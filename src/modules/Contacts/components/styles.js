@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 import Colors from '../../../config/Colors';
 
-
 export default StyleSheet.create({
 	container: {
 		minHeight: '100%',
@@ -51,5 +50,20 @@ export default StyleSheet.create({
 		fontSize: 12,
 		color: Colors.RED,
 		paddingTop: 10,
+	},
+	networkErrorWrapper: {
+		alignItems: 'center',
+		justifyContent: 'center',
+		height: 300,
+	},
+	networkErrorImage: {
+		width: 100,
+		height: 100,
+	},
+	networkErrorText: {
+		fontWeight: '400',
+		fontSize: 15,
+		paddingTop: 20,
+		color: Colors.GRAY,
 	},
 });

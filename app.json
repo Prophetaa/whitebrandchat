@@ -25,6 +25,9 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "permissions": ["READ_CONTACTS", "CAMERA", "RECORD_AUDIO"]
     }
   }
 }
