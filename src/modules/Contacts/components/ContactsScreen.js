@@ -7,14 +7,9 @@ import {
 	setPhoneNumber,
 	sendInvitation,
 	checkIfContactsAreRegistered,
-<<<<<<< HEAD
 	cleanReducer,
 } from '../actions';
 import { createConversation } from '../../Conversation/actions';
-=======
-} from '../actions';
->>>>>>> master
-
 import * as Permissions from 'expo-permissions';
 import * as Contacts from 'expo-contacts';
 
@@ -31,11 +26,7 @@ class ContactsScreen extends Component {
 		const { status } = await Permissions.askAsync(Permissions.CONTACTS);
 
 		if (status !== 'granted') {
-<<<<<<< HEAD
 			await Permissions.askAsync(Permissions.CONTACTS);
-=======
-			console.log('Hey! You heve not enabled selected permissions');
->>>>>>> master
 		} else {
 			const { data } = await Contacts.getContactsAsync({
 				fields: [Contacts.Fields.PhoneNumbers],
@@ -45,10 +36,6 @@ class ContactsScreen extends Component {
 			}
 		}
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 	openModal = () => {
 		this.setState({ visible: true });
 	};
@@ -63,7 +50,6 @@ class ContactsScreen extends Component {
 			Toast.success('Message Sent', 1);
 		}
 		if (newProps.Conversation.creation.redirectToId) {
-			console.log(newProps.Conversation.creation.redirectToId);
 			this.props.navigation.replace('Conversation', {
 				conversationId: newProps.Conversation.creation.redirectToId,
 			});
@@ -76,7 +62,6 @@ class ContactsScreen extends Component {
 
 	render() {
 		const { visible } = this.state;
-<<<<<<< HEAD
 		const {
 			setPhoneNumber,
 			sendInvitation,
@@ -84,9 +69,6 @@ class ContactsScreen extends Component {
 			navigation,
 			createConversation,
 		} = this.props;
-=======
-		const { setPhoneNumber, sendInvitation, Contacts } = this.props;
->>>>>>> master
 		return (
 			<KeyboardAvoidingView behavior='padding' enabled>
 				<View style={styles.container}>
@@ -99,15 +81,11 @@ class ContactsScreen extends Component {
 						/>
 
 						{Contacts.contacts.list.map(contact => (
-<<<<<<< HEAD
 							<ListItem
 								key={contact}
 								text={contact}
 								onPress={() => createConversation(contact)}
 							/>
-=======
-							<ListItem key={contact} text={contact} />
->>>>>>> master
 						))}
 
 						{Contacts.contacts.loading && <ActivityIndicator />}
@@ -117,22 +95,14 @@ class ContactsScreen extends Component {
 							<View style={styles.networkErrorWrapper}>
 								<Image
 									style={styles.networkErrorImage}
-<<<<<<< HEAD
 									source={ImageAssets.NETWORK_ERROR}
-=======
-									source={Config.ImageAssets.NETWORK_ERROR}
->>>>>>> master
 								/>
 								<Text style={styles.networkErrorText}>
 									Something went wrong...
 								</Text>
 							</View>
 						)}
-<<<<<<< HEAD
 
-=======
-             
->>>>>>> master
 						<InvitationModal
 							onClose={this.onClose}
 							visible={visible}
@@ -142,18 +112,10 @@ class ContactsScreen extends Component {
 							styles={styles}
 							error={Contacts.invite.error}
 							loading={Contacts.invite.loading}
-<<<<<<< HEAD
 							image={ImageAssets.TEXT_MESSAGE_ICON}
 							sendInvitation={
 								Contacts.invite.phoneNumber && sendInvitation
 							}
-=======
-							image={Config.ImageAssets.TEXT_MESSAGE_ICON}
-							sendInvitation={
-								Contacts.invite.phoneNumber && sendInvitation
-							}
-
->>>>>>> master
 						/>
 					</Provider>
 				</View>
@@ -165,21 +127,15 @@ class ContactsScreen extends Component {
 const mapStateToProps = state => ({
 	currentUser: state.currentUser,
 	Contacts: state.Contacts,
-<<<<<<< HEAD
 	Conversation: state.Conversation,
-=======
->>>>>>> master
 });
 
 const mapDispatchToProps = {
 	setPhoneNumber,
 	sendInvitation,
 	checkIfContactsAreRegistered,
-<<<<<<< HEAD
 	createConversation,
 	cleanReducer,
-=======
->>>>>>> master
 };
 
 export default connect(

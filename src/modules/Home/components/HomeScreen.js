@@ -58,7 +58,7 @@ class HomeScreen extends Component {
 						<Button
 							type='primary'
 							style={{ marginTop: 15 }}
-							onPress={logout}
+							onPress={() => this.props.navigation.navigate('Contacts')}
 						>
 							Start one
 						</Button>
