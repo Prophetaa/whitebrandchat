@@ -42,7 +42,7 @@ export default function(state = initialState, { type, payload }) {
 		case TOGGLE_LOGIN_LOADING_STATE:
 			return { ...state, loading: !state.loading };
 		case USER_LOGIN_SUCCESS:
-			return { ...state, loading: false };
+			return initialState;
 		default:
 			return state;
 	}

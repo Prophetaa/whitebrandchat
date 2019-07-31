@@ -15,8 +15,9 @@ import {
 	login,
 	handleSecurityCodeChange,
 	signUp,
+	clearLoginReducer,
 } from '../actions';
-import Config from '../../../config';
+import { ImageAssets } from '../../../config';
 
 class LoginScreen extends Component {
 	componentWillUpdate(newProps) {
@@ -47,8 +48,8 @@ class LoginScreen extends Component {
 								style={styles.image}
 								source={
 									!authError
-										? Config.ImageAssets.MOBILE_NUMBER_ICON
-										: Config.ImageAssets.ERROR_404_ICON
+										? ImageAssets.MOBILE_NUMBER_ICON
+										: ImageAssets.ERROR_404_ICON
 								}
 							/>
 							<Text style={styles.header}>
@@ -80,7 +81,7 @@ class LoginScreen extends Component {
 						<View style={styles.stepWrapper}>
 							<Image
 								style={styles.image}
-								source={Config.ImageAssets.PINCODE_ICON}
+								source={ImageAssets.PINCODE_ICON}
 							/>
 							<Text style={styles.header}>
 								You'll receive a text message with a code, insert it
@@ -137,6 +138,7 @@ const mapDispatchToProps = {
 	handleSecurityCodeChange,
 	signUp,
 	login,
+	clearLoginReducer,
 };
 
 export default connect(
