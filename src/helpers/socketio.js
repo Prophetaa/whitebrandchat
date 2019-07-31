@@ -5,7 +5,7 @@ export default class SocketIO {
 	socket = null;
 
 	connect(dispatch, jwt) {
-		console.log('Connecting websocket', jwt);
+		console.log('Connecting websocket');
 		this.socket = io.connect(Constants.baseUrl, {
 			timeout: 1000,
 			transports: ['websocket'],

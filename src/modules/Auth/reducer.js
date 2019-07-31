@@ -13,9 +13,8 @@ export default function(state = initialState, { type, payload }) {
 		case USER_LOGIN_SUCCESS: {
 			AsyncStorage.setItem(
 				Constants.localStorageJwtKey,
-				JSON.stringify(payload)
+				JSON.stringify({ ...payload, id: toUserId(payload.jwt) })
 			);
-
 			return payload;
 		}
 		case USER_LOGOUT: {
