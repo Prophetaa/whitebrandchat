@@ -8,7 +8,7 @@ import { ImageAssets } from '../../../config';
 
 class SplashScreen extends Component {
 	async componentDidMount() {
-		await this.props.rehidrateJWT();
+		this.props.rehidrateJWT();
 	}
 
 	componentWillUpdate(newProps) {

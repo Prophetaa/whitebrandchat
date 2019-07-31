@@ -15,7 +15,7 @@ export default function(state = initialState, { type, payload }) {
 				Constants.localStorageJwtKey,
 				JSON.stringify({ ...payload, id: toUserId(payload.jwt) })
 			);
-			return { ...payload, id: toUserId(payload.jwt) };
+			return payload;
 		}
 		case USER_LOGOUT: {
 			AsyncStorage.removeItem(Constants.localStorageJwtKey);

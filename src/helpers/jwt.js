@@ -6,6 +6,4 @@ const jwtData = jwt => {
 
 export const toUserId = jwt => jwt && jwtData(jwt).id;
 
-export const toUserRole = jwt => jwt && jwtData(jwt).role;
-
 export const isExpired = jwt => jwt && jwtData(jwt).exp < Date.now() / 1000;

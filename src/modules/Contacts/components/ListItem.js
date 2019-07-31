@@ -2,9 +2,9 @@ import React from 'react';
 import { View, Text, Image, TouchableHighlight } from 'react-native';
 import { StyleSheet } from 'react-native';
 
-const ListItem = ({ imageSource, text, onPress }) => {
+const ListItem = ({ imageSource, text, onPress, onLongPress }) => {
 	return (
-		<TouchableHighlight onPress={onPress}>
+		<TouchableHighlight onPress={onPress} onLongPress={onLongPress}>
 			<View style={styles.container}>
 				<Image style={styles.image} source={imageSource} />
 				<Text style={styles.text}>{text}</Text>

@@ -1,14 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../../config';
+import { Colors } from '../../../../config';
 
 export default (isThereConversations = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#1bc4fc',
-		justifyContent: 'flex-end',
-	},
-
-	//Text Area Styles
 	textareaContainer: {
 		width: '100%',
 		flexDirection: 'row',
@@ -53,6 +46,7 @@ export default (isThereConversations = StyleSheet.create({
 	uploadedImage: {
 		flex: 1,
 		alignItems: 'flex-end',
+		borderRadius: 8,
 		width: '100%',
 		height: '100%',
 	},
@@ -76,55 +70,30 @@ export default (isThereConversations = StyleSheet.create({
 		width: 45,
 		resizeMode: 'stretch',
 	},
-	//Chat Bubbles Style
-	chatBubblesContainer: {
-		height: '100%',
+	//Reply to Bubble styles
+	replyToBubbleContainer: {
+		backgroundColor: Colors.SUPER_LIGHT_GRAY,
+		padding: 10,
+		position: 'relative',
 	},
-	//Bubbles Styling
-	leftBubbleContainer: {
-		width: '100%',
-		justifyContent: 'flex-start',
-		padding: 8,
-	},
-	rightBubbleContainer: {
-		width: '100%',
-		alignItems: 'flex-end',
-		padding: 8,
-	},
-	leftBubble: {
-		backgroundColor: Colors.LIGHTER_BLUE,
-		padding: 13,
-		maxWidth: '70%',
-		borderRadius: 10,
-		borderBottomLeftRadius: 0,
-	},
-	rightBubble: {
+	replyToBubbleTextContainer: {
 		backgroundColor: Colors.WHITE,
-		padding: 13,
-		maxWidth: '70%',
+		padding: 10,
+		maxHeight: 100,
+		overflow: 'hidden',
 		borderRadius: 10,
-		borderBottomRightRadius: 0,
 	},
-	bubbleText: {
-		fontSize: 15,
-		paddingBottom: 2,
+	replyToBubbleNumber: {
+		opacity: 0.7,
+		paddingLeft: 6,
 	},
-	bubleAttachedImage: {
-		width: 230,
-		height: 200,
+	replyToBubbleText: {
+		fontSize: 17,
+		paddingTop: 5,
 	},
-	timeAndStatusContainer: {
-		flexDirection: 'row',
-		justifyContent: 'flex-end',
-		alignItems: 'center',
-	},
-	bubbleTimeStamp: {
-		fontSize: 12,
-		color: Colors.GRAY,
-	},
-	messageStatus: {
-		width: 13,
-		marginLeft: 2,
-		height: 8,
+	removeReplyTo: {
+		position: 'absolute',
+		top: 17,
+		right: 17,
 	},
 }));

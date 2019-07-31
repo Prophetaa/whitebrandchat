@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
 import styles from './styles';
-import { ImageAssets } from '../../../config';
+import { ImageAssets } from '../../../../config';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 const Navbar = ({ statusBarHeight, onLeftPress, onRightPress }) => {
@@ -10,12 +10,8 @@ const Navbar = ({ statusBarHeight, onLeftPress, onRightPress }) => {
 			<TouchableWithoutFeedback
 				onPress={onLeftPress}
 				style={styles().navbarButtonSection}
-			>
-				<Image
-					source={ImageAssets.PLUS_ICON_2}
-					style={styles().navbarIcon}
-				/>
-			</TouchableWithoutFeedback>
+			/>
+			<Text>Conversations</Text>
 			<TouchableWithoutFeedback
 				onPress={onRightPress}
 				style={styles().navbarButtonSection}

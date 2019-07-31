@@ -18,9 +18,12 @@ export const IMAGE_ATTACHED = 'IMAGE_ATTACHED';
 export const MESSAGE_SENT_SUCCESS = 'MESSAGE_SENT_SUCCESS';
 export const NEW_MESSAGE_RECEIVED = 'NEW_MESSAGE_RECEIVED';
 export const MESSAGE_SENT_ERROR = 'MESSAGE_SENT_ERROR';
+export const MESSAGE_DELETED = 'MESSAGE_DELETED';
 export const CLEAR_CURRENT_CONVERSATION_REDUCER =
 	'CLEAR_CURRENT_CONVERSATION_REDUCER';
 export const REMOVE_ATTACHED_IMAGE = 'REMOVE_ATTACHED_IMAGE';
+export const REPLY_TO_MESSAGE_ADD = 'REPLY_TO_MESSAGE_ADDED';
+export const REPLY_TO_MESSAGE_REMOVE = 'REPLY_TO_MESSAGE_REMOVED';
 
 export const onTextChange = payload => ({
 	type: TEXT_CHANGED,
@@ -34,6 +37,15 @@ export const attachImage = payload => ({
 
 export const clearUploadedImage = () => ({
 	type: REMOVE_ATTACHED_IMAGE,
+});
+
+export const replyToMessage = messageIndex => ({
+	type: REPLY_TO_MESSAGE_ADD,
+	payload: messageIndex,
+});
+
+export const removeReplyTo = () => ({
+	type: REPLY_TO_MESSAGE_REMOVE,
 });
 
 export const clearCurrentConversationReducer = () => ({
@@ -81,18 +93,19 @@ export const fetchConversationMessages = conversationId => (
 		});
 };
 
-export const sendMessage = () => (dispatch, getState) => {
+export const sendMessage = () => async (dispatch, getState) => {
 	const state = getState();
 	if (!state.currentUser) {
 		return null;
 	}
 	const currentConversation = state.Conversation.currentConversation;
 	const jwt = state.currentUser.jwt;
-
-	if (currentConversation.messageToSend.text === '') {
+	const { text, attachedImage } = currentConversation.messageToSend;
+	if (text === '' && !attachedImage) {
 		return null;
 	}
 	dispatch({ type: SENDING_MESSAGE });
+
 	request
 		.post(
 			`${Constants.baseUrl}/conversations/${
@@ -100,7 +113,10 @@ export const sendMessage = () => (dispatch, getState) => {
 			}`
 		)
 		.set('Authorization', `Bearer ${jwt}`)
-		.send(currentConversation.messageToSend)
+		.send({
+			...currentConversation.messageToSend,
+			text: currentConversation.messageToSend.text.trim(),
+		})
 		.then(res => dispatch({ type: MESSAGE_SENT_SUCCESS, payload: res.body }))
 		.catch(err => {
 			console.log(err);
@@ -109,4 +125,17 @@ export const sendMessage = () => (dispatch, getState) => {
 				payload: err.body,
 			});
 		});
+};
+
+export const deleteMessage = messageId => (dispatch, getState) => {
+	const state = getState();
+	if (!state.currentUser) {
+		return null;
+	}
+	const jwt = state.currentUser.jwt;
+
+	request
+		.put(`${Constants.baseUrl}/message/${messageId}`)
+		.set('Authorization', `Bearer ${jwt}`)
+		.catch(err => console.log(err));
 };

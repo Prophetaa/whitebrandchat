@@ -4,7 +4,7 @@ import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
 import { YellowBox } from 'react-native';
 import { store } from './src/redux';
-
+import { Provider as AntProvider } from '@ant-design/react-native';
 import AppNavigator from './src/helpers/AppNavigation';
 
 class App extends React.Component {
@@ -13,7 +13,8 @@ class App extends React.Component {
 	async componentDidMount() {
 		YellowBox.ignoreWarnings([
 			'Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?',
-		]); //Ignoring this error because it's warning me to use props that I don't need.
+		]);
+
 		await Font.loadAsync(
 			'antoutline',
 			require('@ant-design/icons-react-native/fonts/antoutline.ttf')
@@ -27,7 +28,9 @@ class App extends React.Component {
 		}
 		return (
 			<Provider store={store}>
-				<AppNavigator />
+				<AntProvider>
+					<AppNavigator />
+				</AntProvider>
 			</Provider>
 		);
 	}

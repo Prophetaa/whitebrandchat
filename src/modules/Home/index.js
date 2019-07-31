@@ -1,4 +1,4 @@
-import HomeScreen from './components/HomeScreen';
+import HomeScreen from './components/HomeScreen/HomeScreen';
 import actions from './actions';
 import reducer from './reducer';
 
