@@ -93,7 +93,6 @@ export const sendMessage = () => (dispatch, getState) => {
 		return null;
 	}
 	dispatch({ type: SENDING_MESSAGE });
-
 	request
 		.post(
 			`${Constants.baseUrl}/conversations/${

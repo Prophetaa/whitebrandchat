@@ -1,5 +1,4 @@
 import * as request from 'superagent';
-
 import { Constants } from '../../config';
 
 export const PHONE_NUMBER_CHANGED = 'PHONE_NUMBER_CHANGED';

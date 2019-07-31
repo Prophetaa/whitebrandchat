@@ -10,7 +10,6 @@ import {
 	cleanReducer,
 } from '../actions';
 import { createConversation } from '../../Conversation/actions';
-
 import * as Permissions from 'expo-permissions';
 import * as Contacts from 'expo-contacts';
 
@@ -18,6 +17,7 @@ import styles from './styles';
 import ListItem from './ListItem';
 import { ImageAssets } from '../../../config';
 import InvitationModal from './InvitationModal';
+import { FlatList } from 'react-native-gesture-handler';
 
 class ContactsScreen extends Component {
 	state = { visible: false };
@@ -36,7 +36,6 @@ class ContactsScreen extends Component {
 			}
 		}
 	}
-
 	openModal = () => {
 		this.setState({ visible: true });
 	};

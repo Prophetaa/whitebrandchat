@@ -17,7 +17,6 @@ import * as Permissions from 'expo-permissions';
 
 class ConversationScreen extends React.Component {
 	state = { uploadedImage: null };
-
 	componentWillMount() {
 		const { navigation, fetchConversationMessages } = this.props;
 		const conversationId = navigation.getParam('conversationId', 0);
