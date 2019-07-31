@@ -1,6 +1,5 @@
 import Constants from '../../config/Constants';
 import { AsyncStorage } from 'react-native';
-
 export const JWT_REHIDRATION_SUCCESSFUL = 'JWT_REHIDRATION_SUCCESSFUL';
 export const JWT_REHIDRATION_FAILED = 'JWT_REHIDRATION_FAILED';
 
@@ -11,15 +10,17 @@ export const logout = () => ({
 });
 
 export const rehidrateJWT = () => async dispatch => {
-	AsyncStorage.getItem(Constants.localStorageJwtKey)
-		.then(res =>
-			dispatch({
-				type: JWT_REHIDRATION_SUCCESSFUL,
-				payload: JSON.parse(res),
-			})
-		)
-		.catch(err => {
-			console.log(err);
-			dispatch({ type: JWT_REHIDRATION_FAILED });
+	const localStoredJwt = await AsyncStorage.getItem(
+		Constants.localStorageJwtKey
+	);
+	if (localStoredJwt) {
+		return dispatch({
+			type: JWT_REHIDRATION_SUCCESSFUL,
+			payload: JSON.parse(localStoredJwt),
 		});
+	}
+	dispatch({
+		type: JWT_REHIDRATION_FAILED,
+	});
+	return null;
 };

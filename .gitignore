@@ -2,3 +2,6 @@ node_modules
 
 /.expo
 /.expo-shared
+
+/src/config/Constants.js
+/src/config/Services.js

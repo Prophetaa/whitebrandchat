@@ -59,8 +59,9 @@ export const signUp = () => (dispatch, getState) => {
 		});
 };
 
-export const login = () => (dispatch, getState) => {
+export const login = () => async (dispatch, getState) => {
 	const state = getState();
+	dispatch(toggleLoginLoadingState());
 	request
 		.post(`${Constants.baseUrl}/login`)
 		.send({
@@ -71,6 +72,7 @@ export const login = () => (dispatch, getState) => {
 			dispatch(userLoginSuccess(res.body));
 		})
 		.catch(err => {
+			console.log(err);
 			dispatch({ type: WRONG_SECURITY_CODE });
 		});
 };

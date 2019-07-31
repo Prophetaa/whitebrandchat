@@ -43,6 +43,7 @@ export default function(state = initialState, { type, payload }) {
 			return { ...state, loading: !state.loading };
 		case USER_LOGIN_SUCCESS:
 			return initialState;
+
 		default:
 			return state;
 	}

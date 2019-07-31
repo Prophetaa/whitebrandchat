@@ -6,10 +6,6 @@ import { SplashScreen } from '../modules/Splash';
 import { ContactsScreen } from '../modules/Contacts';
 import { ConversationScreen } from '../modules/Conversation';
 
-import React from 'react';
-import { Image, TouchableHighlight } from 'react-native';
-import { ImageAssets } from '../config';
-
 const AppNavigator = createStackNavigator(
 	{
 		SplashScreen: {

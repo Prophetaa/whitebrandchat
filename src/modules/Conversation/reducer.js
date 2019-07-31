@@ -12,6 +12,9 @@ import {
 	NEW_MESSAGE_RECEIVED,
 	REMOVE_ATTACHED_IMAGE,
 	IMAGE_ATTACHED,
+	MESSAGE_DELETED,
+	REPLY_TO_MESSAGE_ADD,
+	REPLY_TO_MESSAGE_REMOVE,
 } from './actions';
 import { CLEAN_CONVERSATION_REDUCER_STATE } from '../Contacts/actions';
 
@@ -23,7 +26,8 @@ let initialState = {
 		error: false,
 		messageToSend: {
 			text: '',
-			attatchedImage: null,
+			attachedImage: null,
+			replyTo: null,
 		},
 	},
 	fetching: false,
@@ -89,7 +93,10 @@ export default function(state = initialState, { type, payload }) {
 				...state,
 				currentConversation: {
 					...currentConversation,
-					messageToSend: { ...messageToSend, text: payload },
+					messageToSend: {
+						...currentConversation.messageToSend,
+						text: payload,
+					},
 				},
 			};
 		case IMAGE_ATTACHED:
@@ -99,7 +106,29 @@ export default function(state = initialState, { type, payload }) {
 					...currentConversation,
 					messageToSend: {
 						...currentConversation.messageToSend,
-						attatchedImage: payload,
+						attachedImage: payload,
+					},
+				},
+			};
+		case REPLY_TO_MESSAGE_ADD:
+			return {
+				...state,
+				currentConversation: {
+					...currentConversation,
+					messageToSend: {
+						...currentConversation.messageToSend,
+						replyTo: payload,
+					},
+				},
+			};
+		case REPLY_TO_MESSAGE_REMOVE:
+			return {
+				...state,
+				currentConversation: {
+					...currentConversation,
+					messageToSend: {
+						...currentConversation.messageToSend,
+						replyTo: null,
 					},
 				},
 			};
@@ -108,7 +137,7 @@ export default function(state = initialState, { type, payload }) {
 				...state,
 				currentConversation: {
 					...currentConversation,
-					messageToSend: { text: '', attatchedImage: null },
+					messageToSend: { text: '', attachedImage: null },
 				},
 			};
 		case NEW_MESSAGE_RECEIVED:
@@ -125,7 +154,16 @@ export default function(state = initialState, { type, payload }) {
 				};
 			}
 			return state;
-
+		case MESSAGE_DELETED:
+			return {
+				...state,
+				currentConversation: {
+					...currentConversation,
+					messages: currentConversation.messages.map(message =>
+						message.id === payload.id ? payload : message
+					),
+				},
+			};
 		case REMOVE_ATTACHED_IMAGE:
 			return {
 				...state,
@@ -133,7 +171,7 @@ export default function(state = initialState, { type, payload }) {
 					...currentConversation,
 					messageToSend: {
 						...currentConversation.messageToSend,
-						attatchedImage: null,
+						attachedImage: null,
 					},
 				},
 			};

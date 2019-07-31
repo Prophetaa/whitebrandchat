@@ -2,25 +2,32 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styles from './styles';
 import * as ImagePicker from 'expo-image-picker';
-import { View, Image } from 'react-native';
+import { Modal, Provider } from '@ant-design/react-native';
+import { View } from 'react-native';
 import {
 	onTextChange,
 	fetchConversationMessages,
 	sendMessage,
+	deleteMessage,
 	clearCurrentConversationReducer,
 	attachImage,
 	clearUploadedImage,
-} from '../actions';
-import TextArea from './TextArea';
-import ChatBubbleContainer from './ChatBubbleContainer';
+	replyToMessage,
+	removeReplyTo,
+} from '../../actions';
+import TextArea from '../TextArea/TextArea';
+import ChatBubbleContainer from '../ChatBubbleContainer/ChatBubbleContainer';
 import * as Permissions from 'expo-permissions';
 
 class ConversationScreen extends React.Component {
-	state = { uploadedImage: null };
+	state = { uploadedImage: null, conversationIndex: null };
 
 	componentWillMount() {
 		const { navigation, fetchConversationMessages } = this.props;
 		const conversationId = navigation.getParam('conversationId', 0);
+		this.setState({
+			conversationIndex: navigation.getParam('conversationIndex', null),
+		});
 		fetchConversationMessages(conversationId);
 	}
 
@@ -47,22 +54,39 @@ class ConversationScreen extends React.Component {
 			}
 
 			const uri = result.uri;
-			const uriParts = uri.split('.');
-			const imageType = uriParts[uriParts.length - 1];
-			const formData = new FormData();
-			formData.append('photo', {
-				uri: result.base64,
-				name: `photo.${imageType}`,
-				type: `image/${imageType}`,
-			});
+
 			this.setState({
 				uploadedImage: {
-					uri: `data:image/${imageType};base64,${result.base64}`,
+					uri,
 				},
 			});
 
-			this.props.attachImage(formData);
+			this.props.attachImage(result.base64);
+			return;
 		}
+	};
+
+	onBubblePress = (message, messageIndex) => {
+		message.from === this.props.currentUser.id
+			? Modal.operation([
+					{
+						text: 'Reply message',
+						onPress: () => this.props.replyToMessage(messageIndex),
+					},
+					{
+						text: 'Delete message',
+						onPress: () => {
+							!message.isDeleted &&
+								this.props.deleteMessage(message.id, messageIndex);
+						},
+					},
+			  ])
+			: Modal.operation([
+					{
+						text: 'Reply message',
+						onPress: () => this.props.replyToMessage(messageIndex),
+					},
+			  ]);
 	};
 
 	sendMessageAndClearState = () => {
@@ -80,21 +104,18 @@ class ConversationScreen extends React.Component {
 	}
 
 	render() {
-		const { onTextChange, Conversation, currentUser } = this.props;
+		const { onTextChange } = this.props;
 		const { uploadedImage } = this.state;
 		return (
 			<View style={styles.container}>
-				<ChatBubbleContainer
-					conversation={Conversation.currentConversation}
-					currentUser={currentUser}
-				/>
+				<ChatBubbleContainer onBubblePress={this.onBubblePress} />
 				<TextArea
 					onTextChange={onTextChange}
-					Conversation={Conversation}
 					onSubmit={this.sendMessageAndClearState}
 					onCameraClick={this.uploadImage}
 					uploadedImage={uploadedImage}
 					clearUploadedImage={this.clearUploadedImage}
+					removeReplyTo={() => this.props.removeReplyTo()}
 				/>
 			</View>
 		);
@@ -103,7 +124,7 @@ class ConversationScreen extends React.Component {
 
 const mapStateToProps = state => ({
 	currentUser: state.currentUser,
-	Conversation: state.Conversation,
+	conversations: state.myConversations.conversations,
 });
 
 const mapDispatchToProps = {
@@ -111,8 +132,11 @@ const mapDispatchToProps = {
 	fetchConversationMessages,
 	attachImage,
 	sendMessage,
+	deleteMessage,
 	clearCurrentConversationReducer,
 	clearUploadedImage,
+	replyToMessage,
+	removeReplyTo,
 };
 
 export default connect(

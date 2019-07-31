@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { View, Text, Image } from 'react-native';
 import styles from './styles';
-import { ImageAssets } from '../../../config';
-import { ActivityIndicator, Button } from '@ant-design/react-native';
+import { ImageAssets } from '../../../../config';
+import { ActivityIndicator, Button, Modal } from '@ant-design/react-native';
 import { connect } from 'react-redux';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { fetchMyConversations } from '../actions';
-import ListItem from '../../Contacts/components/ListItem';
+import { fetchMyConversations, deleteConversation } from '../../actions';
+import ListItem from '../../../Contacts/components/ListItem';
 
-import Navbar from './Navbar';
+import Navbar from '../Navbar/Navbar';
 import { ScrollView } from 'react-native-gesture-handler';
-import { logout } from '../../Auth/actions';
+import { logout } from '../../../Auth/actions';
+import CreateConvoButton from '../CreateConvoButton/CreateConvoButton';
 
 class HomeScreen extends Component {
 	state = { statusBarHeight: 0 };
@@ -22,6 +23,15 @@ class HomeScreen extends Component {
 
 	navigateToContacts = () => {
 		this.props.navigation.navigate('Contacts');
+	};
+
+	toggleDeleteModal = conversationId => {
+		Modal.operation([
+			{
+				text: 'Delete Conversation',
+				onPress: () => this.props.deleteConversation(conversationId),
+			},
+		]);
 	};
 
 	componentWillReceiveProps(newProps) {
@@ -38,21 +48,22 @@ class HomeScreen extends Component {
 		const isThereConversations = myConversations.conversations.length > 0;
 
 		return (
-			<View style={styles().container}>
+			<View style={styles.container}>
 				<Navbar
 					statusBarHeight={this.state.statusBarHeight}
-					onLeftPress={() => this.props.navigation.navigate('Contacts')}
 					onRightPress={logout}
 				/>
-
+				<CreateConvoButton
+					goToContacts={() => this.props.navigation.navigate('Contacts')}
+				/>
 				{myConversations.fetching && <ActivityIndicator size='large' />}
 				{!myConversations.fetching && !isThereConversations > 0 && (
-					<View style={styles().noConversationContainer}>
+					<View style={styles.noConversationContainer}>
 						<Image
-							style={styles().noConversationsImage}
+							style={styles.noConversationsImage}
 							source={ImageAssets.EMPTY_INBOX_ICON}
 						/>
-						<Text style={styles().noConversationsText}>
+						<Text style={styles.noConversationsText}>
 							You have no conversations
 						</Text>
 						<Button
@@ -64,10 +75,9 @@ class HomeScreen extends Component {
 						</Button>
 					</View>
 				)}
-				<Text />
 				{currentUser && isThereConversations && (
 					<ScrollView>
-						{myConversations.conversations.map(conversation => {
+						{myConversations.conversations.map((conversation, index) => {
 							const {
 								id,
 								userOneAvatar,
@@ -79,9 +89,11 @@ class HomeScreen extends Component {
 							const isUserOneCurrentUser = userOneId === currentUser.id;
 							return (
 								<ListItem
+									onLongPress={this.toggleDeleteModal}
 									onPress={() =>
 										navigation.navigate('Conversation', {
 											conversationId: id,
+											conversationIndex: index,
 										})
 									}
 									key={id}
@@ -113,6 +125,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
 	fetchMyConversations,
+	deleteConversation,
 	logout,
 };
 

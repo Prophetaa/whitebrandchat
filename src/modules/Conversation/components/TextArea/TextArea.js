@@ -2,15 +2,16 @@ import React from 'react';
 import {
 	KeyboardAvoidingView,
 	View,
-	Text,
 	TextInput,
 	Image,
 	ImageBackground,
 } from 'react-native';
-import { ImageAssets } from '../../../config';
+import { connect } from 'react-redux';
+import { ImageAssets } from '../../../../config';
 import { Icon } from '@ant-design/react-native';
 import styles from './styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import ReplyToBubble from './ReplyToBubble';
 
 const TextArea = ({
 	onTextChange,
@@ -19,21 +20,32 @@ const TextArea = ({
 	onCameraClick,
 	uploadedImage,
 	clearUploadedImage,
+	removeReplyTo,
 }) => {
-	const text = Conversation.currentConversation.messageToSend.text;
-
+	const { messageToSend } = Conversation.currentConversation;
 	return (
-		<KeyboardAvoidingView behavior='position' enabled>
+		<KeyboardAvoidingView behavior='padding'>
+			{messageToSend.replyTo && (
+				<ReplyToBubble
+					removeReplyTo={removeReplyTo}
+					message={
+						Conversation.currentConversation.messages[
+							messageToSend.replyTo
+						]
+					}
+				/>
+			)}
 			<View style={styles.textareaContainer}>
-				{!uploadedImage ? (
+				{!uploadedImage && (
 					<TextInput
 						style={styles.textarea}
-						value={text}
+						value={messageToSend.text}
 						multiline={true}
 						autoCorrect={false}
 						onChange={onTextChange}
 					/>
-				) : (
+				)}
+				{uploadedImage && (
 					<View style={styles.uploadedImageContainer}>
 						<ImageBackground
 							style={styles.uploadedImage}
@@ -48,7 +60,7 @@ const TextArea = ({
 						</ImageBackground>
 					</View>
 				)}
-				{text === '' && !uploadedImage && (
+				{messageToSend.text === '' && !uploadedImage && (
 					<TouchableOpacity onPress={onCameraClick}>
 						<Image
 							style={styles.cameraIcon}
@@ -64,4 +76,12 @@ const TextArea = ({
 	);
 };
 
-export default TextArea;
+const mapStateToProps = state => ({
+	Conversation: state.Conversation,
+	currentUserId: state.currentUser.id,
+});
+
+export default connect(
+	mapStateToProps,
+	null
+)(TextArea);

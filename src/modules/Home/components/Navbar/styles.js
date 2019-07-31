@@ -3,35 +3,6 @@ import { Colors } from '../../../config';
 
 export default (styles = statusBarHeight =>
 	StyleSheet.create({
-		container: {
-			flex: 1,
-			textAlign: 'center',
-			fontWeight: 'bold',
-			height: '100%',
-			width: '100%',
-			fontSize: 20,
-		},
-		activityIndicator: {
-			alignItems: 'center',
-			justifyContent: 'center',
-		},
-		noConversationContainer: {
-			alignItems: 'center',
-			paddingTop: '80%',
-			justifyContent: 'center',
-		},
-		noConversationsImage: {
-			width: 100,
-			height: 100,
-		},
-		noConversationsText: {
-			fontWeight: '400',
-			fontSize: 15,
-			color: '#8e8e8e',
-			paddingTop: 20,
-			paddingBottom: 15,
-		},
-		// NAVBAR STYLES
 		navbarContainer: {
 			paddingLeft: 10,
 			paddingRight: 10,
@@ -51,6 +22,8 @@ export default (styles = statusBarHeight =>
 			shadowOpacity: 0.1,
 			shadowRadius: 4,
 			elevation: 3,
+			borderBottomWidth: 2,
+			borderBottomColor: Colors.SUPER_LIGHT_GRAY,
 		},
 		navbarButtonSection: {},
 		navbarIcon: {
