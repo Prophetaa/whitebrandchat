@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 import { Constants } from '../config';
-window.navigator.userAgent = 'ReactNative';
+
 class SocketIO {
 	socket = null;
 

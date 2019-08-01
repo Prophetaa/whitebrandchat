@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Image } from 'react-native';
 import styles from './styles';
 import { ImageAssets } from '../../../../config';
-import { ActivityIndicator, Button, Modal } from '@ant-design/react-native';
+import { ActivityIndicator, Modal } from '@ant-design/react-native';
 import { connect } from 'react-redux';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { fetchMyConversations, deleteConversation } from '../../actions';
@@ -66,13 +66,6 @@ class HomeScreen extends Component {
 						<Text style={styles.noConversationsText}>
 							You have no conversations
 						</Text>
-						<Button
-							type='primary'
-							style={{ marginTop: 15 }}
-							onPress={() => this.props.navigation.navigate('Contacts')}
-						>
-							Start one
-						</Button>
 					</View>
 				)}
 				{currentUser && isThereConversations && (
