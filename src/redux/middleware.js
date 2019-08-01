@@ -1,6 +1,9 @@
 import { USER_LOGIN_SUCCESS, USER_LOGOUT } from '../modules/Login/actions';
 import { JWT_REHIDRATION_SUCCESSFUL } from '../modules/Auth/actions';
-import { CREATE_SOCKET_ROOMS } from '../modules/Home/actions';
+import {
+	CREATE_SOCKET_ROOMS,
+	NEW_CONVERSATION_CREATED,
+} from '../modules/Home/actions';
 
 export const socketIo = socketio => store => next => action => {
 	if (
@@ -15,6 +18,10 @@ export const socketIo = socketio => store => next => action => {
 		action.payload.map(conversation =>
 			socketio.emit('subscribe', conversation.id)
 		);
+	}
+
+	if (action.type === NEW_CONVERSATION_CREATED) {
+		socketio.emit('subscribe', action.payload.id);
 	}
 
 	if (action.type === USER_LOGOUT) {

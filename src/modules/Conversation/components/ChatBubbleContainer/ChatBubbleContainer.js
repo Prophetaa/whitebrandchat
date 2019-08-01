@@ -20,34 +20,28 @@ const ChatBubbleContainer = ({
 		setTimeout(() => flatListRef.scrollToEnd(), 900);
 	};
 
-	console.log(conversation.messages.length);
-
 	return (
 		<View style={styles.chatBubblesContainer}>
-			{conversation.messages.length > 0 && (
-				<FlatList
-					ref={ref => {
-						flatListRef = ref;
-					}}
-					data={conversation.messages}
-					keyExtractor={item => `${item.id}`}
-					renderItem={({ item, index }) => (
-						<Bubble
-							replyToMessage={
-								item.replyTo
-									? conversation.messages[item.replyTo]
-									: null
-							}
-							messageIndex={index}
-							message={item}
-							id={currentUserId}
-							onBubblePress={onBubblePress}
-							scrollToMessage={scrollToIndex}
-						/>
-					)}
-					onContentSizeChange={scrollToEnd}
-				/>
-			)}
+			<FlatList
+				ref={ref => {
+					flatListRef = ref;
+				}}
+				data={conversation.messages}
+				keyExtractor={item => `${item.id}`}
+				renderItem={({ item, index }) => (
+					<Bubble
+						replyToMessage={
+							item.replyTo ? conversation.messages[item.replyTo] : null
+						}
+						messageIndex={index}
+						message={item}
+						id={currentUserId}
+						onBubblePress={onBubblePress}
+						scrollToMessage={scrollToIndex}
+					/>
+				)}
+				onContentSizeChange={scrollToEnd}
+			/>
 		</View>
 	);
 };
