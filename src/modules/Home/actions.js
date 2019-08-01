@@ -4,7 +4,8 @@ import * as request from 'superagent';
 export const CONVERSATIONS_FETCHED = 'CONVERSATIONS_FETCHED';
 export const FETCHING_CONVERSATIONS = 'FETCHING_CONVERSATIONS';
 export const FETCHING_CONVERSATIONS_ERROR = 'FETCHING_CONVERSATIONS_ERROR';
-
+export const NEW_CONVERSATION_CREATED = 'NEW_CONVERSATION_CREATED';
+export const CONVERSATION_DELETED = 'CONVERSATION_DELETED';
 export const CREATE_SOCKET_ROOMS = 'CREATE_SOCKET_ROOMS';
 
 export const deleteConversation = conversationId => (dispatch, getState) => {
