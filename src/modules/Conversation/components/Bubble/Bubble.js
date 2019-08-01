@@ -51,9 +51,9 @@ const ChatBubble = ({
 					)}
 					<Text
 						style={
-							message.text !== 'This message was deleted'
-								? styles.bubbleText
-								: styles.bubbleTextDeleted
+							message.isDeleted
+								? styles.bubbleTextDeleted
+								: styles.bubbleText
 						}
 					>
 						{text}
