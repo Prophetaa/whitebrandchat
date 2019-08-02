@@ -96,6 +96,14 @@ export default function(state = initialState, { type, payload }) {
 				...state,
 				currentConversation: {
 					...currentConversation,
+					otherUserInfo: payload,
+				},
+			};
+		case CONVERSATION_MESSAGES_FETCHING_FAILED:
+			return {
+				...state,
+				currentConversation: {
+					...currentConversation,
 					loading: false,
 					error: true,
 				},

@@ -24,7 +24,7 @@ import * as Permissions from 'expo-permissions';
 import Navbar from '../Navbar/Navbar';
 
 class ConversationScreen extends React.Component {
-	state = { uploadedImage: null, conversationIndex: null };
+	state = { uploadedImage: null, conversationIndex: null, statusBarHeight: 0 };
 
 	componentWillMount() {
 		const {
@@ -35,6 +35,7 @@ class ConversationScreen extends React.Component {
 		const conversationId = navigation.getParam('conversationId', 0);
 		this.setState({
 			conversationIndex: navigation.getParam('conversationIndex', null),
+			statusBarHeight: getStatusBarHeight(),
 		});
 		fetchConversationMessages(conversationId);
 		fetchOtherUserInfo(conversationId);

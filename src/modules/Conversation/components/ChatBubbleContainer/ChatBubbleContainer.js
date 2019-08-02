@@ -21,6 +21,8 @@ const ChatBubbleContainer = ({
 		setTimeout(() => flatListRef.scrollToEnd(), 900);
 	};
 
+	console.log(conversation.messages.length);
+
 	return (
 		<View style={styles(statusBarHeight).chatBubblesContainer}>
 			<FlatList
