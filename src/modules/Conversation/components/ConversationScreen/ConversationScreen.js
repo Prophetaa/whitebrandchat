@@ -15,6 +15,7 @@ import {
 	clearUploadedImage,
 	replyToMessage,
 	removeReplyTo,
+	recycleMessage,
 	fetchOtherUserInfo,
 } from '../../actions';
 import TextArea from '../TextArea/TextArea';
@@ -23,7 +24,7 @@ import * as Permissions from 'expo-permissions';
 import Navbar from '../Navbar/Navbar';
 
 class ConversationScreen extends React.Component {
-	state = { uploadedImage: null, conversationIndex: null, statusBarHeight: 0 };
+	state = { uploadedImage: null, conversationIndex: null };
 
 	componentWillMount() {
 		const {
@@ -34,7 +35,6 @@ class ConversationScreen extends React.Component {
 		const conversationId = navigation.getParam('conversationId', 0);
 		this.setState({
 			conversationIndex: navigation.getParam('conversationIndex', null),
-			statusBarHeight: getStatusBarHeight(),
 		});
 		fetchConversationMessages(conversationId);
 		fetchOtherUserInfo(conversationId);
@@ -83,6 +83,14 @@ class ConversationScreen extends React.Component {
 						onPress: () => this.props.replyToMessage(messageIndex),
 					},
 					{
+						text: 'Recycle message',
+						onPress: () => {
+							!message.isDeleted &&
+								!message.isRecycled &&
+								this.props.recycleMessage(messageIndex);
+						},
+					},
+					{
 						text: 'Delete message',
 						onPress: () => {
 							!message.isDeleted &&
@@ -113,16 +121,19 @@ class ConversationScreen extends React.Component {
 	}
 
 	render() {
-		const { onTextChange, navigation } = this.props;
+		const { onTextChange, navigation, statusBarHeight } = this.props;
 		const { uploadedImage } = this.state;
 		return (
 			<>
 				<Navbar
-					statusBarHeight={this.state.statusBarHeight}
+					statusBarHeight={statusBarHeight}
 					onLeftPress={() => navigation.goBack()}
 				/>
 				<View style={styles.container}>
-					<ChatBubbleContainer onBubblePress={this.onBubblePress} />
+					<ChatBubbleContainer
+						onBubblePress={this.onBubblePress}
+						statusBarHeight={statusBarHeight}
+					/>
 					<TextArea
 						onTextChange={onTextChange}
 						onSubmit={this.sendMessageAndClearState}
@@ -139,6 +150,7 @@ class ConversationScreen extends React.Component {
 
 const mapStateToProps = state => ({
 	currentUser: state.currentUser,
+	statusBarHeight: state.Common.statusBarHeight,
 	conversations: state.myConversations.conversations,
 });
 
@@ -150,6 +162,7 @@ const mapDispatchToProps = {
 	deleteMessage,
 	clearCurrentConversationReducer,
 	clearUploadedImage,
+	recycleMessage,
 	replyToMessage,
 	removeReplyTo,
 	fetchOtherUserInfo,

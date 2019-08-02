@@ -6,7 +6,6 @@ import {
 	FETCHING_CONVERSATION_MESSAGES,
 	CONVERSATION_MESSAGES_FETCHED,
 	CONVERSATION_MESSAGES_FETCHING_FAILED,
-	MESSAGE_SENT_SUCCESS,
 	SENDING_MESSAGE,
 	CLEAR_CURRENT_CONVERSATION_REDUCER,
 	NEW_MESSAGE_RECEIVED,
@@ -15,8 +14,9 @@ import {
 	MESSAGE_DELETED,
 	REPLY_TO_MESSAGE_ADD,
 	REPLY_TO_MESSAGE_REMOVE,
-	FETCHING_OTHER_USER,
 	OTHER_USER_FETCHED,
+	ADD_MESSAGE_TO_RECYCLE,
+	MESSAGE_RECYCLED,
 } from './actions';
 import { CLEAN_CONVERSATION_REDUCER_STATE } from '../Contacts/actions';
 
@@ -32,6 +32,7 @@ let initialState = {
 			attachedImage: null,
 			replyTo: null,
 		},
+		messageToRecycle: null,
 	},
 	fetching: false,
 	creation: {
@@ -100,16 +101,31 @@ export default function(state = initialState, { type, payload }) {
 				},
 			};
 		case TEXT_CHANGED:
-			return {
-				...state,
-				currentConversation: {
-					...currentConversation,
-					messageToSend: {
-						...currentConversation.messageToSend,
-						text: payload,
-					},
-				},
-			};
+			return currentConversation.messageToRecycle
+				? {
+						...state,
+						currentConversation: {
+							...currentConversation,
+							messageToSend: {
+								...currentConversation.messageToSend,
+								text: null,
+							},
+							messageToRecycle: {
+								...currentConversation.messageToRecycle,
+								text: payload,
+							},
+						},
+				  }
+				: {
+						...state,
+						currentConversation: {
+							...currentConversation,
+							messageToSend: {
+								...currentConversation.messageToSend,
+								text: payload,
+							},
+						},
+				  };
 		case IMAGE_ATTACHED:
 			return {
 				...state,
@@ -143,12 +159,21 @@ export default function(state = initialState, { type, payload }) {
 					},
 				},
 			};
+		case ADD_MESSAGE_TO_RECYCLE:
+			return {
+				...state,
+				currentConversation: {
+					...currentConversation,
+					messageToRecycle: currentConversation.messages[payload],
+				},
+			};
 		case SENDING_MESSAGE:
 			return {
 				...state,
 				currentConversation: {
 					...currentConversation,
 					messageToSend: { text: '', attachedImage: null },
+					messageToRecycle: null,
 				},
 			};
 		case NEW_MESSAGE_RECEIVED:
@@ -165,6 +190,7 @@ export default function(state = initialState, { type, payload }) {
 				};
 			}
 			return state;
+		case MESSAGE_RECYCLED:
 		case MESSAGE_DELETED:
 			return {
 				...state,

@@ -8,6 +8,7 @@ const ChatBubbleContainer = ({
 	conversation,
 	currentUserId,
 	onBubblePress,
+	statusBarHeight,
 }) => {
 	const scrollToIndex = index => {
 		flatListRef.scrollToIndex({
@@ -21,7 +22,7 @@ const ChatBubbleContainer = ({
 	};
 
 	return (
-		<View style={styles.chatBubblesContainer}>
+		<View style={styles(statusBarHeight).chatBubblesContainer}>
 			<FlatList
 				ref={ref => {
 					flatListRef = ref;

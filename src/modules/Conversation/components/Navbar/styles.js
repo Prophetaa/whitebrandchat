@@ -4,14 +4,14 @@ import { Colors } from '../../../../config';
 export default (styles = statusBarHeight =>
 	StyleSheet.create({
 		navbarContainer: {
+			position: 'absolute',
 			paddingLeft: 10,
 			paddingRight: 10,
+			paddingTop: statusBarHeight,
 			width: '100%',
-
-			height: 55,
-			top: statusBarHeight,
-			marginBottom: statusBarHeight,
-			backgroundColor: Colors.WHITE,
+			height: statusBarHeight + 55,
+			top: 0,
+			backgroundColor: Colors.SUPER_LIGHT_BLUE,
 			flexDirection: 'row',
 			alignItems: 'center',
 			shadowColor: Colors.BLACK,
@@ -22,8 +22,7 @@ export default (styles = statusBarHeight =>
 			shadowOpacity: 0.1,
 			shadowRadius: 4,
 			elevation: 3,
-			borderBottomWidth: 2,
-			borderBottomColor: Colors.SUPER_LIGHT_GRAY,
+			zIndex: 10,
 		},
 		navbarButtonSection: {
 			alignItems: 'center',

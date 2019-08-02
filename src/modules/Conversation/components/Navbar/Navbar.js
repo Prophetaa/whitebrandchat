@@ -34,7 +34,10 @@ const Navbar = ({ statusBarHeight, onLeftPress, otherUserInfo }) => {
 									<Text>Online now</Text>
 								</View>
 							) : (
-								<Text>{moment(lastSeen).fromNow()}</Text>
+								<Text>
+									{lastSeen &&
+										`last seen ${moment(lastSeen).fromNow()}`}
+								</Text>
 							)}
 						</View>
 					</View>

@@ -25,6 +25,8 @@ export const CLEAR_CURRENT_CONVERSATION_REDUCER =
 export const REMOVE_ATTACHED_IMAGE = 'REMOVE_ATTACHED_IMAGE';
 export const REPLY_TO_MESSAGE_ADD = 'REPLY_TO_MESSAGE_ADDED';
 export const REPLY_TO_MESSAGE_REMOVE = 'REPLY_TO_MESSAGE_REMOVED';
+export const ADD_MESSAGE_TO_RECYCLE = 'ADD_MESSAGE_TO_RECYCLE';
+export const MESSAGE_RECYCLED = 'MESSAGE_RECYCLED';
 
 export const onTextChange = payload => ({
 	type: TEXT_CHANGED,
@@ -47,6 +49,11 @@ export const replyToMessage = messageIndex => ({
 
 export const removeReplyTo = () => ({
 	type: REPLY_TO_MESSAGE_REMOVE,
+});
+
+export const recycleMessage = messageIndex => ({
+	type: ADD_MESSAGE_TO_RECYCLE,
+	payload: messageIndex,
 });
 
 export const clearCurrentConversationReducer = () => ({
@@ -119,25 +126,35 @@ export const sendMessage = () => async (dispatch, getState) => {
 	}
 	dispatch({ type: SENDING_MESSAGE });
 
-	request
-		.post(
-			`${Constants.baseUrl}/conversations/${
-				currentConversation.conversationId
-			}`
-		)
-		.set('Authorization', `Bearer ${jwt}`)
-		.send({
-			...currentConversation.messageToSend,
-			text: currentConversation.messageToSend.text.trim(),
-		})
-		.then(res => dispatch({ type: MESSAGE_SENT_SUCCESS, payload: res.body }))
-		.catch(err => {
-			console.log(err);
-			dispatch({
-				type: MESSAGE_SENT_ERROR,
-				payload: err.body,
-			});
-		});
+	currentConversation.messageToRecycle
+		? request
+				.put(`${Constants.baseUrl}/recycle/message`)
+				.set('Authorization', `Bearer ${jwt}`)
+				.send({
+					...currentConversation.messageToRecycle,
+					text: currentConversation.messageToRecycle.text.trim(),
+				})
+				.then(() => dispatch({ type: MESSAGE_SENT_SUCCESS }))
+				.catch(err => console.log(err))
+		: request
+				.post(
+					`${Constants.baseUrl}/conversations/${
+						currentConversation.conversationId
+					}`
+				)
+				.set('Authorization', `Bearer ${jwt}`)
+				.send({
+					...currentConversation.messageToSend,
+					text: currentConversation.messageToSend.text.trim(),
+				})
+				.then(() => dispatch({ type: MESSAGE_SENT_SUCCESS }))
+				.catch(err => {
+					console.log(err);
+					dispatch({
+						type: MESSAGE_SENT_ERROR,
+						payload: err.body,
+					});
+				});
 };
 
 export const deleteMessage = messageId => (dispatch, getState) => {

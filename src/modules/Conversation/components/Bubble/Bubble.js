@@ -67,7 +67,9 @@ const ChatBubble = ({
 					)}
 					<View style={styles.timeAndStatusContainer}>
 						<Text style={styles.bubbleTimeStamp}>
-							{moment(timeStamp).calendar()}
+							{moment(timeStamp).calendar(null, {
+								sameDay: '[] hh:mm',
+							})}
 						</Text>
 						{isTextmessageMine && (
 							<Image
