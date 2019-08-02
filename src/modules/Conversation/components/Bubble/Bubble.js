@@ -3,6 +3,7 @@ import { Text, View, Image } from 'react-native';
 import { ImageAssets } from '../../../../config';
 import styles from './styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import moment from 'moment';
 
 const ChatBubble = ({
 	message,
@@ -66,7 +67,7 @@ const ChatBubble = ({
 					)}
 					<View style={styles.timeAndStatusContainer}>
 						<Text style={styles.bubbleTimeStamp}>
-							{`${timeStamp.getHours()}:${timeStamp.getMinutes()}`}
+							{moment(timeStamp).calendar()}
 						</Text>
 						{isTextmessageMine && (
 							<Image

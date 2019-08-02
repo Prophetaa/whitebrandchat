@@ -12,6 +12,7 @@ export const FETCHING_CONVERSATION_MESSAGES = 'FETCHING_CONVERSATION_MESSAGES';
 export const CONVERSATION_MESSAGES_FETCHED = 'CONVERSATION_MESSAGES_FETCHED';
 export const CONVERSATION_MESSAGES_FETCHING_FAILED =
 	'CONVERSATION_MESSAGES_FETCHING_FAILED';
+export const OTHER_USER_FETCHED = 'OTHER_USER_FETCHED';
 
 export const SENDING_MESSAGE = 'SENDING_MESSAGE';
 export const IMAGE_ATTACHED = 'IMAGE_ATTACHED';
@@ -91,6 +92,18 @@ export const fetchConversationMessages = conversationId => (
 				payload: err.body,
 			});
 		});
+};
+
+export const fetchOtherUserInfo = conversationId => (dispatch, getState) => {
+	let state = getState();
+	if (!state.currentUser) return null;
+	let jwt = state.currentUser.jwt;
+
+	request
+		.get(`${Constants.baseUrl}/conversations/${conversationId}/userInfo`)
+		.set('Authorization', `Bearer ${jwt}`)
+		.then(res => dispatch({ type: OTHER_USER_FETCHED, payload: res.body }))
+		.catch(err => console.log(err));
 };
 
 export const sendMessage = () => async (dispatch, getState) => {

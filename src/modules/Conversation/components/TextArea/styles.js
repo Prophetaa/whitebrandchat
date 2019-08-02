@@ -6,6 +6,7 @@ export default (isThereConversations = StyleSheet.create({
 		width: '100%',
 		flexDirection: 'row',
 		padding: 9,
+		alignSelf: 'flex-end',
 		alignItems: 'flex-end',
 		backgroundColor: Colors.SUPER_LIGHT_GRAY,
 		minHeight: 60,
