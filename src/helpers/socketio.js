@@ -1,5 +1,6 @@
 import io from 'socket.io-client';
 import { Constants } from '../config';
+
 class SocketIO {
 	socket = null;
 
