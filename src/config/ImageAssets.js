@@ -13,6 +13,7 @@ const ImageAssets = {
 	MESSAGE_UNREAD: require('../assets/unread.png'),
 	MESSAGE_READ: require('../assets/read.png'),
 	LOGOUT_ICON: require('../assets/logout.png'),
+	ONLINE_ICON: require('../assets/online.png'),
 };
 
 export default ImageAssets;

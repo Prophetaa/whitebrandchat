@@ -15,12 +15,15 @@ import {
 	MESSAGE_DELETED,
 	REPLY_TO_MESSAGE_ADD,
 	REPLY_TO_MESSAGE_REMOVE,
+	FETCHING_OTHER_USER,
+	OTHER_USER_FETCHED,
 } from './actions';
 import { CLEAN_CONVERSATION_REDUCER_STATE } from '../Contacts/actions';
 
 let initialState = {
 	currentConversation: {
 		conversationId: null,
+		otherUserInfo: {},
 		messages: [],
 		loading: false,
 		error: false,
@@ -39,7 +42,7 @@ let initialState = {
 };
 
 export default function(state = initialState, { type, payload }) {
-	const { messageToSend, creation, currentConversation } = state;
+	const { creation, currentConversation } = state;
 
 	switch (type) {
 		case CREATING_CONVERSATION:
@@ -77,6 +80,14 @@ export default function(state = initialState, { type, payload }) {
 					loading: false,
 					error: false,
 					messages: [...payload, ...currentConversation.messages],
+				},
+			};
+		case OTHER_USER_FETCHED:
+			return {
+				...state,
+				currentConversation: {
+					...currentConversation,
+					otherUserInfo: payload,
 				},
 			};
 		case CONVERSATION_MESSAGES_FETCHING_FAILED:

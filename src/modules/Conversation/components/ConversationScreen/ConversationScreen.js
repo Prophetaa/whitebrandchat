@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styles from './styles';
 import * as ImagePicker from 'expo-image-picker';
-import { Modal, Provider } from '@ant-design/react-native';
+import { Modal } from '@ant-design/react-native';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { View } from 'react-native';
 import {
 	onTextChange,
@@ -14,21 +15,29 @@ import {
 	clearUploadedImage,
 	replyToMessage,
 	removeReplyTo,
+	fetchOtherUserInfo,
 } from '../../actions';
 import TextArea from '../TextArea/TextArea';
 import ChatBubbleContainer from '../ChatBubbleContainer/ChatBubbleContainer';
 import * as Permissions from 'expo-permissions';
+import Navbar from '../Navbar/Navbar';
 
 class ConversationScreen extends React.Component {
-	state = { uploadedImage: null, conversationIndex: null };
+	state = { uploadedImage: null, conversationIndex: null, statusBarHeight: 0 };
 
 	componentWillMount() {
-		const { navigation, fetchConversationMessages } = this.props;
+		const {
+			navigation,
+			fetchConversationMessages,
+			fetchOtherUserInfo,
+		} = this.props;
 		const conversationId = navigation.getParam('conversationId', 0);
 		this.setState({
 			conversationIndex: navigation.getParam('conversationIndex', null),
+			statusBarHeight: getStatusBarHeight(),
 		});
 		fetchConversationMessages(conversationId);
+		fetchOtherUserInfo(conversationId);
 	}
 
 	uploadImage = async () => {
@@ -104,20 +113,26 @@ class ConversationScreen extends React.Component {
 	}
 
 	render() {
-		const { onTextChange } = this.props;
+		const { onTextChange, navigation } = this.props;
 		const { uploadedImage } = this.state;
 		return (
-			<View style={styles.container}>
-				<ChatBubbleContainer onBubblePress={this.onBubblePress} />
-				<TextArea
-					onTextChange={onTextChange}
-					onSubmit={this.sendMessageAndClearState}
-					onCameraClick={this.uploadImage}
-					uploadedImage={uploadedImage}
-					clearUploadedImage={this.clearUploadedImage}
-					removeReplyTo={() => this.props.removeReplyTo()}
+			<>
+				<Navbar
+					statusBarHeight={this.state.statusBarHeight}
+					onLeftPress={() => navigation.goBack()}
 				/>
-			</View>
+				<View style={styles.container}>
+					<ChatBubbleContainer onBubblePress={this.onBubblePress} />
+					<TextArea
+						onTextChange={onTextChange}
+						onSubmit={this.sendMessageAndClearState}
+						onCameraClick={this.uploadImage}
+						uploadedImage={uploadedImage}
+						clearUploadedImage={this.clearUploadedImage}
+						removeReplyTo={() => this.props.removeReplyTo()}
+					/>
+				</View>
+			</>
 		);
 	}
 }
@@ -137,6 +152,7 @@ const mapDispatchToProps = {
 	clearUploadedImage,
 	replyToMessage,
 	removeReplyTo,
+	fetchOtherUserInfo,
 };
 
 export default connect(
