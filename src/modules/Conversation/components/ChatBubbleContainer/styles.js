@@ -1,7 +1,11 @@
 import { StyleSheet } from 'react-native';
+import { Colors } from '../../../../config';
 
-export default (isThereConversations = StyleSheet.create({
-	chatBubblesContainer: {
-		height: '100%',
-	},
-}));
+export default (styles = statusBarHeight =>
+	StyleSheet.create({
+		chatBubblesContainer: {
+			height: '100%',
+			backgroundColor: Colors.WHITE,
+			paddingTop: statusBarHeight + 55,
+		},
+	}));

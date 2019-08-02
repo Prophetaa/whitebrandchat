@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 53033,
   "expoServerNgrokUrl": "https://v4-ptm.claudioprofeta.whitebrandchat.exp.direct",
   "packagerNgrokUrl": "https://packager.v4-ptm.claudioprofeta.whitebrandchat.exp.direct",
-  "ngrokPid": 42325
+  "ngrokPid": 53044
 }

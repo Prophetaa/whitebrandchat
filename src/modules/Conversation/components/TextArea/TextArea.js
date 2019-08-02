@@ -22,7 +22,7 @@ const TextArea = ({
 	clearUploadedImage,
 	removeReplyTo,
 }) => {
-	const { messageToSend } = Conversation.currentConversation;
+	const { messageToSend, messageToRecycle } = Conversation.currentConversation;
 	return (
 		<KeyboardAvoidingView behavior='padding'>
 			{messageToSend.replyTo && (
@@ -39,10 +39,15 @@ const TextArea = ({
 				{!uploadedImage && (
 					<TextInput
 						style={styles.textarea}
-						value={messageToSend.text}
+						value={
+							messageToRecycle
+								? messageToRecycle.text
+								: messageToSend.text
+						}
 						multiline={true}
 						autoCorrect={false}
 						onChange={onTextChange}
+						placeholder='Type something...'
 					/>
 				)}
 				{uploadedImage && (
