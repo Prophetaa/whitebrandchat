@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Image, TouchableHighlight } from 'react-native';
 import { StyleSheet } from 'react-native';
+import { Colors } from '../../../config';
 
 const ListItem = ({ imageSource, text, onPress, onLongPress }) => {
 	return (
@@ -20,14 +21,13 @@ const styles = StyleSheet.create({
 		backgroundColor: '#ffffff',
 		alignItems: 'center',
 		width: '100%',
-		borderBottomWidth: 2,
-		borderBottomColor: '#c4c4c4',
+		borderBottomWidth: 1,
+		borderBottomColor: Colors.LIGHT_GRAY,
 	},
 	image: {
 		marginRight: 20,
 		width: 50,
 		height: 50,
-		// borderRadius: 50,
 	},
 	text: {
 		fontSize: 20,

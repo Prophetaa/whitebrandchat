@@ -1,7 +1,7 @@
 import React from 'react';
 import PhoneInput from 'react-native-phone-input';
 
-import { Text, View, Image } from 'react-native';
+import { Text, View } from 'react-native';
 import { Modal, Button } from '@ant-design/react-native';
 
 const InvitationModal = ({
@@ -10,7 +10,6 @@ const InvitationModal = ({
 	styles,
 	onChangePhoneNumber,
 	sendInvitation,
-	image,
 	loading,
 	error,
 }) => {
@@ -23,7 +22,6 @@ const InvitationModal = ({
 			closable
 		>
 			<View style={styles.modalBody}>
-				<Image style={styles.modalImage} source={image} />
 				<Text style={styles.modalText}>We'll send them a text message</Text>
 				{error.error && (
 					<Text style={styles.errorMessage}>{error.message}</Text>

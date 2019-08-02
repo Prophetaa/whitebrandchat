@@ -38,6 +38,7 @@ class LoginScreen extends Component {
 			login,
 			currentUser,
 			authError,
+			code,
 		} = this.props;
 		return (
 			<View style={styles.container}>
@@ -87,6 +88,7 @@ class LoginScreen extends Component {
 								You'll receive a text message with a code, insert it
 								below
 							</Text>
+							<Text>{code}</Text>
 							<TextInput
 								style={
 									!authError ? styles.codeInput : styles.codeInputError
@@ -131,6 +133,7 @@ const mapStateToProps = state => ({
 	loading: state.login.loading,
 	codeSent: state.login.codeSent,
 	currentUser: state.currentUser,
+	code: state.login.code,
 });
 
 const mapDispatchToProps = {

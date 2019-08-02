@@ -21,7 +21,8 @@ import {
 import TextArea from '../TextArea/TextArea';
 import ChatBubbleContainer from '../ChatBubbleContainer/ChatBubbleContainer';
 import * as Permissions from 'expo-permissions';
-import Navbar from '../Navbar/Navbar';
+import IOSNavbar from '../Navbar/IOSNavbar';
+import AndroidNavbar from '../Navbar/AndroidNavbar';
 
 class ConversationScreen extends React.Component {
 	state = { uploadedImage: null, conversationIndex: null };
@@ -121,18 +122,25 @@ class ConversationScreen extends React.Component {
 	}
 
 	render() {
-		const { onTextChange, navigation, statusBarHeight } = this.props;
+		const { onTextChange, navigation, Common } = this.props;
 		const { uploadedImage } = this.state;
 		return (
 			<>
-				<Navbar
-					statusBarHeight={statusBarHeight}
-					onLeftPress={() => navigation.goBack()}
-				/>
+				{Common.platform === 'ios' ? (
+					<IOSNavbar
+						statusBarHeight={Common.statusBarHeight}
+						onLeftPress={() => navigation.goBack()}
+					/>
+				) : (
+					<AndroidNavbar
+						statusBarHeight={Common.statusBarHeight}
+						onLeftPress={() => navigation.goBack()}
+					/>
+				)}
 				<View style={styles.container}>
 					<ChatBubbleContainer
 						onBubblePress={this.onBubblePress}
-						statusBarHeight={statusBarHeight}
+						statusBarHeight={Common.statusBarHeight}
 					/>
 					<TextArea
 						onTextChange={onTextChange}
@@ -150,7 +158,7 @@ class ConversationScreen extends React.Component {
 
 const mapStateToProps = state => ({
 	currentUser: state.currentUser,
-	statusBarHeight: state.Common.statusBarHeight,
+	Common: state.Common,
 	conversations: state.myConversations.conversations,
 });
 

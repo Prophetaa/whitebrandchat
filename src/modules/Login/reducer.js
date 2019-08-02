@@ -20,6 +20,7 @@ let initialState = {
 	loading: false,
 	signupError: null,
 	rehidratingJwt: true,
+	code: null,
 };
 
 export default function(state = initialState, { type, payload }) {
@@ -33,7 +34,13 @@ export default function(state = initialState, { type, payload }) {
 		case SET_SECURITY_CODE:
 			return { ...state, securityCode: payload };
 		case SECURITY_CODE_SENT:
-			return { ...state, codeSent: true, signupError: null };
+			return {
+				...state,
+				loading: false,
+				codeSent: true,
+				signupError: null,
+				code: payload,
+			};
 
 		case USER_SIGNUP_FAILED:
 		case WRONG_SECURITY_CODE:

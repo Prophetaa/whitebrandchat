@@ -1,6 +1,6 @@
-export const SET_STATUS_BAR_HEIGHT = 'SET_STATUS_BAR_HEIGHT';
+export const SET_COMMON_VALUES = 'SET_COMMON_VALUES';
 
-export const setStatusBarHeight = statusBarHeight => ({
-	type: SET_STATUS_BAR_HEIGHT,
-	payload: statusBarHeight,
+export const setCommonValues = (statusBarHeight, platform) => ({
+	type: SET_COMMON_VALUES,
+	payload: { statusBarHeight, platform },
 });

@@ -1,20 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
-import { Icon } from '@ant-design/react-native';
 import styles from './styles';
 import { ImageAssets } from '../../../../config';
 import moment from 'moment';
 
-const Navbar = ({ statusBarHeight, onLeftPress, otherUserInfo }) => {
+const AndroidNavbar = ({ statusBarHeight, onLeftPress, otherUserInfo }) => {
 	const { lastSeen, avatar, phoneNumber, online } = otherUserInfo;
 	return (
-		<View style={styles(statusBarHeight).navbarContainer}>
+		<View style={styles(statusBarHeight).androidNavbarContainer}>
 			<TouchableOpacity
 				onPress={onLeftPress}
 				style={styles().navbarButtonSection}
 			>
-				<Icon name='arrow-left' size='md' color='black' />
+				<Image source={ImageAssets.LEFT_ARROW} style={styles().backArrow} />
 			</TouchableOpacity>
 			<TouchableOpacity>
 				<View style={styles().navbarButtonSection}>
@@ -23,7 +22,7 @@ const Navbar = ({ statusBarHeight, onLeftPress, otherUserInfo }) => {
 						style={styles().otherUserAvatar}
 					/>
 					<View>
-						<Text>{phoneNumber}</Text>
+						<Text style={styles().whiteText}>{phoneNumber}</Text>
 						<View>
 							{online ? (
 								<View style={styles().userStatus}>
@@ -31,10 +30,10 @@ const Navbar = ({ statusBarHeight, onLeftPress, otherUserInfo }) => {
 										style={styles().onlineIcon}
 										source={ImageAssets.ONLINE_ICON}
 									/>
-									<Text>Online now</Text>
+									<Text style={styles().whiteText}>Online now</Text>
 								</View>
 							) : (
-								<Text>
+								<Text style={styles().whiteText}>
 									{lastSeen &&
 										`last seen ${moment(lastSeen).fromNow()}`}
 								</Text>
@@ -54,4 +53,4 @@ const mapStateToProps = state => ({
 export default connect(
 	mapStateToProps,
 	null
-)(Navbar);
+)(AndroidNavbar);
