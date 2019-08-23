@@ -1,28 +1,41 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { connect } from 'react-redux';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import { ImageAssets } from '../../../../config';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
-const Navbar = ({ statusBarHeight, onLeftPress, onRightPress }) => {
+const Navbar = ({ onRightPress, Common }) => {
+	const { statusBarHeight, platform } = Common;
+	const isPlatformIos = platform === 'ios';
 	return (
-		<View style={styles(statusBarHeight).navbarContainer}>
-			<TouchableWithoutFeedback
-				onPress={onLeftPress}
-				style={styles().navbarButtonSection}
-			/>
-			<Text>Conversations</Text>
-			<TouchableWithoutFeedback
+		<View
+			style={
+				isPlatformIos
+					? styles(statusBarHeight).iosNavContainer
+					: styles(statusBarHeight).androidNavContainer
+			}
+		>
+			<TouchableOpacity />
+			<Text
+				style={isPlatformIos ? styles().iosHeader : styles().androidHeader}
+			>
+				Conversations
+			</Text>
+			<TouchableOpacity
 				onPress={onRightPress}
 				style={styles().navbarButtonSection}
 			>
-				<Image
-					source={ImageAssets.LOGOUT_ICON}
-					style={styles().navbarIcon}
-				/>
-			</TouchableWithoutFeedback>
+				{isPlatformIos && <Image source={ImageAssets.IOS_MENU_ICON} />}
+			</TouchableOpacity>
 		</View>
 	);
 };
 
-export default Navbar;
+const mapStateToProps = state => ({
+	Common: state.Common,
+});
+
+export default connect(
+	mapStateToProps,
+	null
+)(Navbar);

@@ -8,7 +8,7 @@ export default (isThereConversations = StyleSheet.create({
 		flexDirection: 'row',
 		padding: 9,
 		alignSelf: 'flex-end',
-		alignItems: 'flex-end',
+		alignItems: 'center',
 		backgroundColor: Colors.WHITE,
 		minHeight: 60,
 		maxHeight: 200,
@@ -57,21 +57,13 @@ export default (isThereConversations = StyleSheet.create({
 		margin: 5,
 	},
 	cameraIcon: {
-		marginTop: 8,
-		marginBottom: 8,
 		marginLeft: 6,
-		marginRight: 0,
-		height: 30,
-		width: 30,
+		marginRight: 5,
 		resizeMode: 'stretch',
 	},
 	sendIcon: {
-		marginTop: 8,
-		marginBottom: 8,
+		marginRight: 10,
 		marginLeft: 10,
-		height: 35,
-		width: 35,
-		resizeMode: 'stretch',
 	},
 	//Reply to Bubble styles
 	replyToBubbleContainer: {

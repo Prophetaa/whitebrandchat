@@ -17,7 +17,6 @@ import styles from './styles';
 import ListItem from './ListItem';
 import { ImageAssets } from '../../../config';
 import InvitationModal from './InvitationModal';
-import { FlatList } from 'react-native-gesture-handler';
 
 class ContactsScreen extends Component {
 	state = { visible: false };
@@ -90,7 +89,6 @@ class ContactsScreen extends Component {
 
 						{Contacts.contacts.loading && <ActivityIndicator />}
 
-						{/* TODO: Move comon empty list or error message styling and components to common folder */}
 						{Contacts.contacts.error && (
 							<View style={styles.networkErrorWrapper}>
 								<Image
@@ -112,7 +110,6 @@ class ContactsScreen extends Component {
 							styles={styles}
 							error={Contacts.invite.error}
 							loading={Contacts.invite.loading}
-							image={ImageAssets.TEXT_MESSAGE_ICON}
 							sendInvitation={
 								Contacts.invite.phoneNumber && sendInvitation
 							}

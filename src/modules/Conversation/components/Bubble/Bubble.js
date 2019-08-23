@@ -70,7 +70,6 @@ const ChatBubble = ({
 							{moment(timeStamp).calendar(null, {
 								sameDay: '[] hh:mm',
 							})}
-
 						</Text>
 						{isTextmessageMine && (
 							<Image

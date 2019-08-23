@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, Platform } from 'react-native';
 import styles from './styles';
 import { ImageAssets } from '../../../../config';
 import { ActivityIndicator, Modal } from '@ant-design/react-native';
 import { connect } from 'react-redux';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { setStatusBarHeight } from '../../../Common/actions';
+import { setCommonValues } from '../../../Common/actions';
 import { fetchMyConversations, deleteConversation } from '../../actions';
 import ListItem from '../../../Contacts/components/ListItem';
 
@@ -16,7 +16,7 @@ import CreateConvoButton from '../CreateConvoButton/CreateConvoButton';
 
 class HomeScreen extends Component {
 	componentDidMount() {
-		this.props.setStatusBarHeight(getStatusBarHeight());
+		this.props.setCommonValues(getStatusBarHeight(), Platform);
 		this.props.fetchMyConversations();
 	}
 
@@ -54,7 +54,7 @@ class HomeScreen extends Component {
 
 		return (
 			<View style={styles().container}>
-				<Navbar statusBarHeight={statusBarHeight} onRightPress={logout} />
+				<Navbar onRightPress={logout} />
 				<CreateConvoButton
 					goToContacts={() => this.props.navigation.navigate('Contacts')}
 				/>
@@ -124,7 +124,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
 	fetchMyConversations,
 	deleteConversation,
-	setStatusBarHeight,
+	setCommonValues,
 	logout,
 };
 

@@ -35,8 +35,9 @@ export const logout = () => ({
 	type: USER_LOGOUT,
 });
 
-export const securityCodeSent = () => ({
+export const securityCodeSent = payload => ({
 	type: SECURITY_CODE_SENT,
+	payload,
 });
 
 export const toggleLoginLoadingState = () => ({
@@ -50,10 +51,7 @@ export const signUp = () => (dispatch, getState) => {
 	request
 		.post(`${Constants.baseUrl}/users`)
 		.send({ phoneNumber: state.login.phoneNumber })
-		.then(() => {
-			dispatch(toggleLoginLoadingState());
-			dispatch(securityCodeSent());
-		})
+		.then(res => dispatch(securityCodeSent(res.text)))
 		.catch(err => {
 			dispatch({ type: USER_SIGNUP_FAILED, payload: err.status });
 		});

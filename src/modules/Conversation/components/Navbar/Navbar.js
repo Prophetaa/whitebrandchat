@@ -1,29 +1,56 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
-import { Icon } from '@ant-design/react-native';
 import styles from './styles';
 import { ImageAssets } from '../../../../config';
 import moment from 'moment';
 
-const Navbar = ({ statusBarHeight, onLeftPress, otherUserInfo }) => {
+const Navbar = ({
+	statusBarHeight,
+	onLeftPress,
+	otherUserInfo,
+	platform,
+	onUserPress,
+}) => {
 	const { lastSeen, avatar, phoneNumber, online } = otherUserInfo;
+	const isPlatformIos = platform === 'ios';
 	return (
-		<View style={styles(statusBarHeight).navbarContainer}>
+		<View
+			style={
+				isPlatformIos
+					? styles(statusBarHeight).iosNavbarContainer
+					: styles(statusBarHeight).androidNavbarContainer
+			}
+		>
 			<TouchableOpacity
 				onPress={onLeftPress}
 				style={styles().navbarButtonSection}
 			>
-				<Icon name='arrow-left' size='md' color='black' />
-			</TouchableOpacity>
-			<TouchableOpacity>
-				<View style={styles().navbarButtonSection}>
+				{isPlatformIos ? (
 					<Image
-						source={{ uri: avatar }}
-						style={styles().otherUserAvatar}
+						source={ImageAssets.LEFT_CHEVRON}
+						style={styles().backChevron}
 					/>
+				) : (
+					<Image
+						source={ImageAssets.LEFT_ARROW}
+						style={styles().backArrow}
+					/>
+				)}
+				{isPlatformIos && (
+					<Text style={styles().backChevronText}>Chats</Text>
+				)}
+			</TouchableOpacity>
+			<TouchableOpacity onPress={onUserPress}>
+				<View style={styles().navbarButtonSection}>
+					{!isPlatformIos && (
+						<Image
+							source={{ uri: avatar }}
+							style={styles().otherUserAvatar}
+						/>
+					)}
 					<View>
-						<Text>{phoneNumber}</Text>
+						<Text style={styles().whiteText}>{phoneNumber}</Text>
 						<View>
 							{online ? (
 								<View style={styles().userStatus}>
@@ -31,10 +58,10 @@ const Navbar = ({ statusBarHeight, onLeftPress, otherUserInfo }) => {
 										style={styles().onlineIcon}
 										source={ImageAssets.ONLINE_ICON}
 									/>
-									<Text>Online now</Text>
+									<Text style={styles().whiteText}>Online now</Text>
 								</View>
 							) : (
-								<Text>
+								<Text style={styles().whiteText}>
 									{lastSeen &&
 										`last seen ${moment(lastSeen).fromNow()}`}
 								</Text>
@@ -43,11 +70,17 @@ const Navbar = ({ statusBarHeight, onLeftPress, otherUserInfo }) => {
 					</View>
 				</View>
 			</TouchableOpacity>
+			{isPlatformIos && (
+				<TouchableOpacity onPress={onUserPress}>
+					<Image source={{ uri: avatar }} style={styles().iosAvatar} />
+				</TouchableOpacity>
+			)}
 		</View>
 	);
 };
 
 const mapStateToProps = state => ({
+	platform: state.Common.platform,
 	otherUserInfo: state.Conversation.currentConversation.otherUserInfo,
 });
 

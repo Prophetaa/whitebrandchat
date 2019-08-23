@@ -69,7 +69,7 @@ const TextArea = ({
 					<TouchableOpacity onPress={onCameraClick}>
 						<Image
 							style={styles.cameraIcon}
-							source={ImageAssets.CAMERA_ICON}
+							source={ImageAssets.GALLERY_ICON}
 						/>
 					</TouchableOpacity>
 				)}
