@@ -54,7 +54,7 @@ class HomeScreen extends Component {
 
 		return (
 			<View style={styles().container}>
-				<Navbar statusBarHeight={statusBarHeight} onRightPress={logout} />
+				<Navbar onRightPress={logout} />
 				<CreateConvoButton
 					goToContacts={() => this.props.navigation.navigate('Contacts')}
 				/>

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import styles from './styles';
 import * as ImagePicker from 'expo-image-picker';
 import { Modal } from '@ant-design/react-native';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { View } from 'react-native';
 import {
 	onTextChange,
@@ -21,8 +20,8 @@ import {
 import TextArea from '../TextArea/TextArea';
 import ChatBubbleContainer from '../ChatBubbleContainer/ChatBubbleContainer';
 import * as Permissions from 'expo-permissions';
-import IOSNavbar from '../Navbar/IOSNavbar';
-import AndroidNavbar from '../Navbar/AndroidNavbar';
+import Navbar from '../Navbar/Navbar';
+import { fetchConversationMedia } from '../../../UserInfo/actions';
 
 class ConversationScreen extends React.Component {
 	state = { uploadedImage: null, conversationIndex: null };
@@ -32,6 +31,7 @@ class ConversationScreen extends React.Component {
 			navigation,
 			fetchConversationMessages,
 			fetchOtherUserInfo,
+			fetchConversationMedia,
 		} = this.props;
 		const conversationId = navigation.getParam('conversationId', 0);
 		this.setState({
@@ -39,6 +39,7 @@ class ConversationScreen extends React.Component {
 		});
 		fetchConversationMessages(conversationId);
 		fetchOtherUserInfo(conversationId);
+		fetchConversationMedia(conversationId);
 	}
 
 	uploadImage = async () => {
@@ -122,21 +123,17 @@ class ConversationScreen extends React.Component {
 	}
 
 	render() {
-		const { onTextChange, navigation, Common } = this.props;
+		const { onTextChange, navigation, Common, otherUserInfo } = this.props;
 		const { uploadedImage } = this.state;
 		return (
 			<>
-				{Common.platform === 'ios' ? (
-					<IOSNavbar
-						statusBarHeight={Common.statusBarHeight}
-						onLeftPress={() => navigation.goBack()}
-					/>
-				) : (
-					<AndroidNavbar
-						statusBarHeight={Common.statusBarHeight}
-						onLeftPress={() => navigation.goBack()}
-					/>
-				)}
+				<Navbar
+					statusBarHeight={Common.statusBarHeight}
+					onLeftPress={() => navigation.goBack()}
+					onUserPress={() =>
+						navigation.push('UserInfoScreen', { otherUserInfo })
+					}
+				/>
 				<View style={styles.container}>
 					<ChatBubbleContainer
 						onBubblePress={this.onBubblePress}
@@ -160,11 +157,13 @@ const mapStateToProps = state => ({
 	currentUser: state.currentUser,
 	Common: state.Common,
 	conversations: state.myConversations.conversations,
+	otherUserInfo: state.Conversation.currentConversation.otherUserInfo,
 });
 
 const mapDispatchToProps = {
 	onTextChange,
 	fetchConversationMessages,
+	fetchConversationMedia,
 	attachImage,
 	sendMessage,
 	deleteMessage,

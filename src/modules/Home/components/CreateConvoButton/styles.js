@@ -18,7 +18,7 @@ export default (styles = StyleSheet.create({
 		elevation: 4,
 	},
 	convoButtonBody: {
-		backgroundColor: Colors.LIGHTER_BLUE,
+		backgroundColor: Colors.DARK_BLUE,
 		width: 60,
 		height: 60,
 		borderRadius: 100,

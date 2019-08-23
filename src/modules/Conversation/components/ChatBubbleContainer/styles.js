@@ -4,7 +4,7 @@ import { Colors } from '../../../../config';
 export default (styles = statusBarHeight =>
 	StyleSheet.create({
 		chatBubblesContainer: {
-			height: '100%',
+			maxHeight: '100%',
 			backgroundColor: Colors.WHITE,
 			paddingTop: statusBarHeight + 55,
 		},

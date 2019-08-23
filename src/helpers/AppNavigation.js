@@ -5,6 +5,7 @@ import { LoginScreen } from '../modules/Login';
 import { SplashScreen } from '../modules/Splash';
 import { ContactsScreen } from '../modules/Contacts';
 import { ConversationScreen } from '../modules/Conversation';
+import UserInfoScreen from '../modules/UserInfo/UserInfoScreen/UserInfoScreen';
 
 const AppNavigator = createStackNavigator(
 	{
@@ -34,6 +35,9 @@ const AppNavigator = createStackNavigator(
 			navigationOptions: {
 				header: null,
 			},
+		},
+		UserInfoScreen: {
+			screen: UserInfoScreen,
 		},
 	},
 	{

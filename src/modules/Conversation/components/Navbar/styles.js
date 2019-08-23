@@ -82,10 +82,12 @@ export default (styles = statusBarHeight =>
 			marginRight: 5,
 		},
 		iosAvatar: {
-			width: 40,
-			height: 40,
+			width: 45,
+			height: 45,
+			borderRadius: 23,
 		},
 		whiteText: {
 			color: Colors.WHITE,
+			textAlign: 'center',
 		},
 	}));

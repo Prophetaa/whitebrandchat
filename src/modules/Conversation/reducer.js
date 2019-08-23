@@ -19,12 +19,14 @@ import {
 	MESSAGE_RECYCLED,
 } from './actions';
 import { CLEAN_CONVERSATION_REDUCER_STATE } from '../Contacts/actions';
+import { CONVERSATION_MEDIA_FETCHED } from '../UserInfo/actions';
 
 let initialState = {
 	currentConversation: {
 		conversationId: null,
 		otherUserInfo: {},
 		messages: [],
+		media: [],
 		loading: false,
 		error: false,
 		messageToSend: {
@@ -89,6 +91,14 @@ export default function(state = initialState, { type, payload }) {
 				currentConversation: {
 					...currentConversation,
 					otherUserInfo: payload,
+				},
+			};
+		case CONVERSATION_MEDIA_FETCHED:
+			return {
+				...state,
+				currentConversation: {
+					...currentConversation,
+					media: [...currentConversation.media, ...payload],
 				},
 			};
 		case CONVERSATION_MESSAGES_FETCHING_FAILED:

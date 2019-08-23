@@ -19,7 +19,7 @@ class SocketIO {
 	}
 
 	disconnect() {
-		this.socket.disconnect();
+		// this.socket.disconnect();
 	}
 }
 

@@ -41,7 +41,7 @@ const ChatBubbleContainer = ({
 						scrollToMessage={scrollToIndex}
 					/>
 				)}
-				// onContentSizeChange={scrollToEnd}
+				onContentSizeChange={scrollToEnd}
 			/>
 		</View>
 	);

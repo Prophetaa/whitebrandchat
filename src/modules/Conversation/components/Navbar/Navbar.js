@@ -5,22 +5,50 @@ import styles from './styles';
 import { ImageAssets } from '../../../../config';
 import moment from 'moment';
 
-const AndroidNavbar = ({ statusBarHeight, onLeftPress, otherUserInfo }) => {
+const Navbar = ({
+	statusBarHeight,
+	onLeftPress,
+	otherUserInfo,
+	platform,
+	onUserPress,
+}) => {
 	const { lastSeen, avatar, phoneNumber, online } = otherUserInfo;
+	const isPlatformIos = platform === 'ios';
 	return (
-		<View style={styles(statusBarHeight).androidNavbarContainer}>
+		<View
+			style={
+				isPlatformIos
+					? styles(statusBarHeight).iosNavbarContainer
+					: styles(statusBarHeight).androidNavbarContainer
+			}
+		>
 			<TouchableOpacity
 				onPress={onLeftPress}
 				style={styles().navbarButtonSection}
 			>
-				<Image source={ImageAssets.LEFT_ARROW} style={styles().backArrow} />
-			</TouchableOpacity>
-			<TouchableOpacity>
-				<View style={styles().navbarButtonSection}>
+				{isPlatformIos ? (
 					<Image
-						source={{ uri: avatar }}
-						style={styles().otherUserAvatar}
+						source={ImageAssets.LEFT_CHEVRON}
+						style={styles().backChevron}
 					/>
+				) : (
+					<Image
+						source={ImageAssets.LEFT_ARROW}
+						style={styles().backArrow}
+					/>
+				)}
+				{isPlatformIos && (
+					<Text style={styles().backChevronText}>Chats</Text>
+				)}
+			</TouchableOpacity>
+			<TouchableOpacity onPress={onUserPress}>
+				<View style={styles().navbarButtonSection}>
+					{!isPlatformIos && (
+						<Image
+							source={{ uri: avatar }}
+							style={styles().otherUserAvatar}
+						/>
+					)}
 					<View>
 						<Text style={styles().whiteText}>{phoneNumber}</Text>
 						<View>
@@ -42,15 +70,21 @@ const AndroidNavbar = ({ statusBarHeight, onLeftPress, otherUserInfo }) => {
 					</View>
 				</View>
 			</TouchableOpacity>
+			{isPlatformIos && (
+				<TouchableOpacity onPress={onUserPress}>
+					<Image source={{ uri: avatar }} style={styles().iosAvatar} />
+				</TouchableOpacity>
+			)}
 		</View>
 	);
 };
 
 const mapStateToProps = state => ({
+	platform: state.Common.platform,
 	otherUserInfo: state.Conversation.currentConversation.otherUserInfo,
 });
 
 export default connect(
 	mapStateToProps,
 	null
-)(AndroidNavbar);
+)(Navbar);

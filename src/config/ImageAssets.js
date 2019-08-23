@@ -15,6 +15,9 @@ const ImageAssets = {
 	LEFT_CHEVRON: require('../assets/left-chevron.png'),
 	LEFT_ARROW: require('../assets/arrow-left.png'),
 	ONLINE_ICON: require('../assets/online.png'),
+	IOS_MENU_ICON: require('../assets/ios-menu.png'),
+	GALLERY_ICON: require('../assets/gallery.png'),
+	ANDROID_MENU_ICON: require('../assets/android-menu.png'),
 };
 
 export default ImageAssets;
