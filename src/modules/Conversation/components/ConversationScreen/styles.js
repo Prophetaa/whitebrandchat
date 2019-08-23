@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native';
-// import { Colors } from '../../../../config';
+import { Colors } from '../../../../config';
 
-export default (isThereConversations = StyleSheet.create({
+export default (styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#1bc4fc',
+		position: 'relative',
+		paddingTop: 80,
 		justifyContent: 'flex-end',
 	},
 }));

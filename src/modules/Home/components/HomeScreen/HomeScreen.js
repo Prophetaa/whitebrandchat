@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { View, Text, Image } from 'react-native';
 import styles from './styles';
 import { ImageAssets } from '../../../../config';
-import { ActivityIndicator, Button, Modal } from '@ant-design/react-native';
+import { ActivityIndicator, Modal } from '@ant-design/react-native';
 import { connect } from 'react-redux';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { setStatusBarHeight } from '../../../Common/actions';
 import { fetchMyConversations, deleteConversation } from '../../actions';
 import ListItem from '../../../Contacts/components/ListItem';
 
@@ -14,10 +15,8 @@ import { logout } from '../../../Auth/actions';
 import CreateConvoButton from '../CreateConvoButton/CreateConvoButton';
 
 class HomeScreen extends Component {
-	state = { statusBarHeight: 0 };
-
 	componentDidMount() {
-		this.setState({ statusBarHeight: getStatusBarHeight() });
+		this.props.setStatusBarHeight(getStatusBarHeight());
 		this.props.fetchMyConversations();
 	}
 
@@ -44,39 +43,37 @@ class HomeScreen extends Component {
 	}
 
 	render() {
-		const { myConversations, navigation, currentUser, logout } = this.props;
+		const {
+			myConversations,
+			statusBarHeight,
+			navigation,
+			currentUser,
+			logout,
+		} = this.props;
 		const isThereConversations = myConversations.conversations.length > 0;
 
 		return (
-			<View style={styles.container}>
-				<Navbar
-					statusBarHeight={this.state.statusBarHeight}
-					onRightPress={logout}
-				/>
+			<View style={styles().container}>
+				<Navbar statusBarHeight={statusBarHeight} onRightPress={logout} />
 				<CreateConvoButton
 					goToContacts={() => this.props.navigation.navigate('Contacts')}
 				/>
 				{myConversations.fetching && <ActivityIndicator size='large' />}
 				{!myConversations.fetching && !isThereConversations > 0 && (
-					<View style={styles.noConversationContainer}>
+					<View style={styles().noConversationContainer}>
 						<Image
-							style={styles.noConversationsImage}
+							style={styles().noConversationsImage}
 							source={ImageAssets.EMPTY_INBOX_ICON}
 						/>
-						<Text style={styles.noConversationsText}>
+						<Text style={styles().noConversationsText}>
 							You have no conversations
 						</Text>
-						<Button
-							type='primary'
-							style={{ marginTop: 15 }}
-							onPress={() => this.props.navigation.navigate('Contacts')}
-						>
-							Start one
-						</Button>
 					</View>
 				)}
 				{currentUser && isThereConversations && (
-					<ScrollView>
+					<ScrollView
+						style={styles(statusBarHeight).conversationsListContainer}
+					>
 						{myConversations.conversations.map((conversation, index) => {
 							const {
 								id,
@@ -118,6 +115,7 @@ class HomeScreen extends Component {
 }
 
 const mapStateToProps = state => ({
+	statusBarHeight: state.Common.statusBarHeight,
 	currentUser: state.currentUser,
 	myConversations: state.myConversations,
 	Conversation: state.Conversation,
@@ -126,6 +124,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
 	fetchMyConversations,
 	deleteConversation,
+	setStatusBarHeight,
 	logout,
 };
 

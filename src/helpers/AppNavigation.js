@@ -31,6 +31,9 @@ const AppNavigator = createStackNavigator(
 		},
 		Conversation: {
 			screen: ConversationScreen,
+			navigationOptions: {
+				header: null,
+			},
 		},
 	},
 	{

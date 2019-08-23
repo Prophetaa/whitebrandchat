@@ -5,6 +5,7 @@ import * as Font from 'expo-font';
 import { store } from './src/redux';
 import { Provider as AntProvider } from '@ant-design/react-native';
 import AppNavigator from './src/helpers/AppNavigation';
+import { StatusBar } from 'react-native';
 
 class App extends React.Component {
 	state = { isReady: false };
@@ -24,6 +25,7 @@ class App extends React.Component {
 		return (
 			<Provider store={store}>
 				<AntProvider>
+					<StatusBar barStyle='dark-content' />
 					<AppNavigator />
 				</AntProvider>
 			</Provider>
