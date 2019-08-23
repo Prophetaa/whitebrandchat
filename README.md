@@ -1,35 +1,8 @@
-README Boilerplate
-A template of README best practices to make your README simple to understand and easy to use.
+This React native real-time chat was created with the purpose of learning and enhancing my react-native knowledge.
 
-Table of Contents
-Installation
-Usage
-Support
-Contributing
-Installation
-Download to your project directory, add README.md, and commit:
+I used React-native along with Socket.IO for a real-time experience, along with a Koa API and postgreSQL for the backend stack (with socket.io-server).
 
-curl -LO http://git.io/Xy0Chg
-git add README.md
-git commit -m "Use README Boilerplate"
-Usage
-Replace the contents of README.md with your project's:
-
-Name
-Description
-Installation instructions
-Usage instructions
-Support instructions
-Contributing instructions
-Feel free to remove any sections that aren't applicable to your project.
-
-Support
-Please open an issue for support.
-
-Contributing
-Please contribute using Github Flow. Create a branch, add commits, and open a pull request.# README Boilerplate
-
-A template of README best practices to make your README simple to understand and easy to use. 
+Feel free to clone this repository and use it however you want to, it's a good way to learn react-native.
 
 ## Table of Contents
 
