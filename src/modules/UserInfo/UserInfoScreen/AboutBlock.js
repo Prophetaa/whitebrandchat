@@ -5,11 +5,11 @@ import styles from './styles';
 const AboutBlock = ({ phoneNumber, description }) => {
 	return (
 		<View style={styles.aboutContainer}>
-			<Text>About</Text>
-			<Text>{phoneNumber}</Text>
-			<Text>Mobile</Text>
-			<Text>{description}</Text>
-			<Text>Bio</Text>
+			<Text style={styles.about}>About</Text>
+			<Text style={styles.aboutLargeText}>{phoneNumber}</Text>
+			<Text style={styles.aboutSmallText}>Mobile</Text>
+			<Text style={styles.aboutLargeText}>{description}</Text>
+			<Text style={styles.aboutSmallText}>Bio</Text>
 		</View>
 	);
 };

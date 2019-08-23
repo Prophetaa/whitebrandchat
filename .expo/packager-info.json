@@ -3,8 +3,8 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": "https://i4-d67.claudioprofeta.whitebrandchat.exp.direct",
-  "packagerNgrokUrl": "https://packager.i4-d67.claudioprofeta.whitebrandchat.exp.direct",
-  "ngrokPid": 11830,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "webpackServerPort": null
 }

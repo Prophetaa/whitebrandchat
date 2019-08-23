@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Image, Text } from 'react-native';
 import styles from './styles';
 import moment from 'moment';
 import { connect } from 'react-redux';
+import AboutBlock from './AboutBlock';
+import MediaBlock from './MediaBlock';
+import NotificationBlock from './NotificationBlock';
 
 const UserInfoScreen = ({ navigation, media }) => {
 	const userInfo = navigation.getParam('otherUserInfo', 0);
-	const { avatar, phoneNumber, nickname, lastSeen } = userInfo;
-	console.log(media);
+	const { avatar, phoneNumber, nickname, lastSeen, description } = userInfo;
+	const [notificationsState, toggleNotifications] = useState(true);
+
 	return (
 		<View>
 			<View style={styles.userImageContainer}>
@@ -23,25 +27,16 @@ const UserInfoScreen = ({ navigation, media }) => {
 					</Text>
 				</View>
 			</View>
-
-			<View style={styles.mediaContainer}>
-				{media.length > 0 &&
-					media.map(
-						(image, i) =>
-							i <= 3 && (
-								<Image
-									key={i}
-									style={styles.mediaImage}
-									source={{ uri: image }}
-								/>
-							)
-					)}
-				{media.length > 3 && (
-					<View style={styles.viewAllMediaContainer}>
-						<Text style={styles.viewAllMediaText}>View All</Text>
-					</View>
-				)}
+			<View style={styles.containerPadding}>
+				<AboutBlock description={description} phoneNumber={phoneNumber} />
+				<NotificationBlock
+					notificationsState={notificationsState}
+					toggleNotifications={() =>
+						toggleNotifications(!notificationsState)
+					}
+				/>
 			</View>
+			<MediaBlock media={media} />
 		</View>
 	);
 };

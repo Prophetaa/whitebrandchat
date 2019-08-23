@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
 		marginRight: 20,
 		width: 50,
 		height: 50,
+		borderRadius: 23,
 	},
 	text: {
 		fontSize: 20,
