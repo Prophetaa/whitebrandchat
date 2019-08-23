@@ -23,6 +23,7 @@ const UserInfoScreen = ({ navigation, media }) => {
 					</Text>
 				</View>
 			</View>
+
 			<View style={styles.mediaContainer}>
 				{media.length > 0 &&
 					media.map(

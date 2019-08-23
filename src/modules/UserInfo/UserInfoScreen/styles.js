@@ -30,6 +30,7 @@ export default StyleSheet.create({
 		textShadowOffset: { width: -1, height: 1 },
 		textShadowRadius: 10,
 	},
+	aboutContainer: {},
 	mediaContainer: {
 		width: '100%',
 		height: 80,
