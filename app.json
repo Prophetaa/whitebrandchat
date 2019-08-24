@@ -18,14 +18,16 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yourcompany.yourappname"
     },
     "android": {
       "permissions": [
         "READ_CONTACTS",
         "CAMERA",
         "RECORD_AUDIO"
-      ]
+      ],
+      "package": "com.yourcompany.yourappname"
     },
     "description": ""
   }

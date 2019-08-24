@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { Colors } from '../../../../config';
 
-export default (styles = statusBarHeight =>
+export default styles = statusBarHeight =>
 	StyleSheet.create({
 		iosNavContainer: {
 			position: 'absolute',
@@ -35,7 +35,7 @@ export default (styles = statusBarHeight =>
 			top: 0,
 			backgroundColor: Colors.DARK_BLUE,
 			flexDirection: 'row',
-			justifyContent: 'flex-start',
+			justifyContent: 'space-between',
 			alignItems: 'center',
 			shadowColor: Colors.BLACK,
 			shadowOffset: {
@@ -67,4 +67,4 @@ export default (styles = statusBarHeight =>
 			color: Colors.WHITE,
 			fontSize: 20,
 		},
-	}));
+	});

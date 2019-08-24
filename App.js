@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { AppLoading } from 'expo';
+import { AppLoading, Notifications } from 'expo';
 import * as Font from 'expo-font';
 import { store } from './src/redux';
 import { Provider as AntProvider } from '@ant-design/react-native';

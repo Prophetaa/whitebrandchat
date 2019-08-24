@@ -1,5 +1,6 @@
 import * as request from 'superagent';
 import Constants from '../../config/Constants';
+import registerForPushNotificationsAsync from '../../helpers/RegisterForPushNotifications';
 
 export const SET_PHONE_NUMBER = 'SET_PHONE_NUMBER';
 export const SET_SECURITY_CODE = 'SET_SECURITY_CODE';
@@ -60,11 +61,14 @@ export const signUp = () => (dispatch, getState) => {
 export const login = () => async (dispatch, getState) => {
 	const state = getState();
 	dispatch(toggleLoginLoadingState());
+	const token = await registerForPushNotificationsAsync();
+
 	request
 		.post(`${Constants.baseUrl}/login`)
 		.send({
 			phoneNumber: state.login.phoneNumber,
 			securityCode: state.login.securityCode,
+			deviceToken: token,
 		})
 		.then(res => {
 			dispatch(userLoginSuccess(res.body));
