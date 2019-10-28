@@ -29,6 +29,7 @@ let initialState = {
 		media: [],
 		loading: false,
 		error: false,
+		isUserTyping: false,
 		messageToSend: {
 			text: '',
 			attachedImage: null,

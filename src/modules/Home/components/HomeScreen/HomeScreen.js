@@ -8,7 +8,7 @@ import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { setCommonValues } from '../../../Common/actions';
 import { fetchMyConversations, deleteConversation } from '../../actions';
 import ListItem from '../../../Contacts/components/ListItem';
-
+import { Notifications } from 'expo';
 import Navbar from '../Navbar/Navbar';
 import { ScrollView } from 'react-native-gesture-handler';
 import { logout } from '../../../Auth/actions';
@@ -18,6 +18,9 @@ class HomeScreen extends Component {
 	componentDidMount() {
 		this.props.setCommonValues(getStatusBarHeight(), Platform);
 		this.props.fetchMyConversations();
+		 Notifications.addListener(
+			this._handleNotification
+		);
 	}
 
 	navigateToContacts = () => {
@@ -41,6 +44,14 @@ class HomeScreen extends Component {
 			this.props.navigation.replace('Login');
 		}
 	}
+
+	_handleNotification = notification => {
+		if (notification.origin === 'selected') {
+			this.props.navigation.navigate('Conversation', {
+				conversationId: notification.data.convoId,
+			});
+		}
+	};
 
 	render() {
 		const {

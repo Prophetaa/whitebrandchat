@@ -15,7 +15,6 @@ const Navbar = ({ onRightPress, Common }) => {
 					: styles(statusBarHeight).androidNavContainer
 			}
 		>
-			<TouchableOpacity />
 			<Text
 				style={isPlatformIos ? styles().iosHeader : styles().androidHeader}
 			>
@@ -26,6 +25,7 @@ const Navbar = ({ onRightPress, Common }) => {
 				style={styles().navbarButtonSection}
 			>
 				{isPlatformIos && <Image source={ImageAssets.IOS_MENU_ICON} />}
+				{!isPlatformIos && <Image source={ImageAssets.IOS_MENU_ICON} />}
 			</TouchableOpacity>
 		</View>
 	);
