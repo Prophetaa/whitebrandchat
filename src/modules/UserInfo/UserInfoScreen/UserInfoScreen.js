@@ -11,7 +11,6 @@ const UserInfoScreen = ({ navigation, media }) => {
 	const userInfo = navigation.getParam('otherUserInfo', 0);
 	const { avatar, phoneNumber, nickname, lastSeen, description } = userInfo;
 	const [notificationsState, toggleNotifications] = useState(true);
-
 	return (
 		<View>
 			<View style={styles.userImageContainer}>
