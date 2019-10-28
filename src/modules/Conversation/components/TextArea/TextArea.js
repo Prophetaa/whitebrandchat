@@ -5,12 +5,12 @@ import {
 	TextInput,
 	Image,
 	ImageBackground,
+	TouchableOpacity,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { ImageAssets } from '../../../../config';
 import { Icon } from '@ant-design/react-native';
 import styles from './styles';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import ReplyToBubble from './ReplyToBubble';
 
 const TextArea = ({

@@ -18,7 +18,7 @@ class HomeScreen extends Component {
 	componentDidMount() {
 		this.props.setCommonValues(getStatusBarHeight(), Platform);
 		this.props.fetchMyConversations();
-		this._notificationSubscription = Notifications.addListener(
+		 Notifications.addListener(
 			this._handleNotification
 		);
 	}
@@ -46,7 +46,6 @@ class HomeScreen extends Component {
 	}
 
 	_handleNotification = notification => {
-		console.log(notification);
 		if (notification.origin === 'selected') {
 			this.props.navigation.navigate('Conversation', {
 				conversationId: notification.data.convoId,
